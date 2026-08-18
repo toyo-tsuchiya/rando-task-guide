@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>試作チーム タスク管理 使い方ガイド</title>
+<style>
+  :root {
+    --bg: #F1EEE7;
+    --surface: #FFFFFF;
+    --surface-soft: #FAF7F1;
+    --ink: #262220;
+    --ink-soft: #6B6259;
+    --ink-faint: #948A7D;
+    --line: #E1DACD;
+    --line-strong: #D2C8B6;
+
+    --indigo: #33436B;
+    --indigo-ink: #2A374F;
+    --indigo-tint: #E8EBF2;
+    --indigo-tint-strong: #D4DAE8;
+
+    --brass: #9C6B24;
+    --brass-ink: #7A551D;
+    --brass-tint: #F4EAD8;
+    --brass-tint-strong: #EADCBE;
+
+    --moss: #45624C;
+    --moss-tint: #E7EEE4;
+
+    --brick: #A8452E;
+    --brick-tint: #F5E1DB;
+
+    --shadow: 0 1px 2px rgba(38,34,32,.04), 0 8px 20px -12px rgba(38,34,32,.18);
+
+    --font-jp: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, 'Menlo', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #201D1A;
+      --surface: #2B2723;
+      --surface-soft: #322D28;
+      --ink: #EDE8E0;
+      --ink-soft: #B9B0A2;
+      --ink-faint: #8A8074;
+      --line: #423C34;
+      --line-strong: #524A40;
+
+      --indigo: #8FA0C7;
+      --indigo-ink: #C4CEE4;
+      --indigo-tint: #303A4F;
+      --indigo-tint-strong: #3B4763;
+
+      --brass: #D6A85C;
+      --brass-ink: #E7C58A;
+      --brass-tint: #3D3323;
+      --brass-tint-strong: #4C3F29;
+
+      --moss: #8FAE93;
+      --moss-tint: #2C362B;
+
+      --brick: #D68870;
+      --brick-tint: #402721;
+
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 24px -14px rgba(0,0,0,.5);
+    }
+  }
+
+  * , *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation: none !important; }
+  }
+
+  body {
+    font-family: var(--font-jp);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+  strong { font-weight: 700; }
+
+  [id] { scroll-margin-top: 84px; }
+
+  :focus-visible {
+    outline: 2px solid var(--indigo);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* ===== ヘッダー ===== */
+  .site-header {
+    background: var(--indigo);
+    color: #F4F1EA;
+    padding: 44px 20px 36px;
+  }
+  .site-header .wrap { text-align: center; }
+  .site-header .eyebrow {
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    opacity: .72;
+    margin-bottom: 10px;
+  }
+  .site-header h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: .01em;
+    text-wrap: balance;
+    line-height: 1.5;
+  }
+  .site-header p {
+    margin-top: 12px;
+    opacity: .82;
+    font-size: .95rem;
+    max-width: 46ch;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  /* ===== イントロ／流れ図 ===== */
+  .intro {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 20px 32px;
+  }
+  .intro p {
+    color: var(--ink-soft);
+    font-size: .95rem;
+    line-height: 1.85;
+  }
+  .flow {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 4px;
+  }
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    color: var(--ink-faint);
+    font-size: .85rem;
+    padding: 0 2px;
+  }
+
+  /* ===== トップナビ ===== */
+  .top-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+  }
+  .top-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .88rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .top-nav a.btn-requester { background: var(--indigo-tint); color: var(--indigo-ink); }
+  .top-nav a.btn-requester:hover { background: var(--indigo); color: #fff; }
+  .top-nav a.btn-team { background: var(--brass-tint); color: var(--brass-ink); }
+  .top-nav a.btn-team:hover { background: var(--brass); color: #fff; }
+  .top-nav a.btn-ghost { background: transparent; color: var(--ink-soft); border-color: var(--line-strong); }
+  .top-nav a.btn-ghost:hover { background: var(--surface-soft); color: var(--ink); }
+
+  /* ===== セクション共通 ===== */
+  .section { max-width: 760px; margin: 48px auto; padding: 0 20px; }
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    padding: 18px 24px;
+    border-radius: 12px 12px 0 0;
+    text-wrap: balance;
+  }
+  .section-title .tag {
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.18);
+  }
+  .section-title.requester { background: var(--indigo); color: #fff; }
+  .section-title.team { background: var(--brass); color: #fff; }
+  .section-title.neutral { background: var(--surface-soft); color: var(--ink); border: 1px solid var(--line); border-bottom: none; }
+
+  .section-body {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 30px 28px 38px;
+    box-shadow: var(--shadow);
+  }
+  .section-body > .lead {
+    color: var(--ink-soft);
+    font-size: .95rem;
+    margin-bottom: 22px;
+  }
+
+  /* ===== STEP カード ===== */
+  .step {
+    display: flex;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .step:first-of-type { border-top: none; padding-top: 0; }
+
+  .step-badge {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+  }
+  .step-badge.blue  { background: var(--indigo); }
+  .step-badge.brass { background: var(--brass); }
+
+  .step-content { flex: 1; min-width: 0; }
+  .step-content h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .step-content ul { list-style: none; }
+  .step-content ul li {
+    padding: 4px 0 4px 18px;
+    position: relative;
+    color: var(--ink);
+  }
+  .step-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 15px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+  }
+
+  /* ===== ヒント・注意 ===== */
+  .tip {
+    background: var(--indigo-tint);
+    border-left: 3px solid var(--indigo);
+    border-radius: 0 8px 8px 0;
+    padding: 11px 14px;
+    margin: 10px 0 0;
+    font-size: .88rem;
+    color: var(--ink);
+  }
+  .tip.brass { background: var(--brass-tint); border-color: var(--brass); }
+  .tip.moss  { background: var(--moss-tint); border-color: var(--moss); }
+  .tip.brick { background: var(--brick-tint); border-color: var(--brick); }
+  .tip.lg    { font-size: 1.05rem; padding: 16px 18px; line-height: 1.8; }
+  .tip b { font-weight: 700; }
+
+  /* ===== 送信後リスト ===== */
+  .after-list { list-style: none; margin-top: 4px; }
+  .after-list li {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+    color: var(--ink);
+  }
+  .after-list li .mark {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--moss-tint);
+    color: var(--moss);
+    font-size: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  /* ===== 色サンプル表 ===== */
+  .color-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: .9rem; }
+  .color-table td { padding: 9px 14px; border: 1px solid var(--line); }
+  .color-table td:first-child { width: 130px; border-radius: 6px; font-weight: 700; }
+
+  /* ===== FAQ ===== */
+  .faq { margin-top: 6px; }
+  .faq-item { padding: 12px 0; border-top: 1px solid var(--line); }
+  .faq-item:first-child { border-top: none; padding-top: 0; }
+  .faq-item .q { font-weight: 700; color: var(--indigo-ink); margin-bottom: 4px; }
+  .section-body .faq-item .q.brass { color: var(--brass-ink); }
+  .faq-item .a { padding-left: 4px; color: var(--ink-soft); }
+
+  /* ===== 依頼番号ルール表 ===== */
+  .prefix-table { width: 100%; border-collapse: collapse; font-size: .88rem; margin-top: 10px; }
+  .prefix-table th {
+    background: var(--surface-soft);
+    color: var(--ink-soft);
+    font-weight: 700;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 2px solid var(--line-strong);
+  }
+  .prefix-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  .prefix-table td.code { font-family: var(--font-mono); font-weight: 700; color: var(--brass-ink); }
+
+  /* ===== 用語集（詳細開閉） ===== */
+  .glossary { display: flex; flex-direction: column; gap: 8px; }
+  .glossary details {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface-soft);
+    overflow: hidden;
+  }
+  .glossary summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 13px 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .glossary summary::-webkit-details-marker { display: none; }
+  .glossary summary .arrow {
+    font-family: var(--font-mono);
+    color: var(--ink-faint);
+    transition: transform .15s ease;
+    flex-shrink: 0;
+  }
+  .glossary details[open] summary .arrow { transform: rotate(90deg); }
+  .glossary details p {
+    padding: 0 16px 15px;
+    color: var(--ink-soft);
+    font-size: .92rem;
+    line-height: 1.75;
+  }
+
+  /* ===== 仕切り線 ===== */
+  .divider { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
+
+  h3.block-heading {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  /* ===== フッター ===== */
+  footer {
+    text-align: center;
+    padding: 36px 16px 48px;
+    color: var(--ink-faint);
+    font-size: .82rem;
+  }
+
+  /* ===== 印刷（PDF出力）向け ===== */
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .top-nav { position: static; }
+    .section { margin: 24px auto; }
+    .section-body { box-shadow: none; }
+    .step { break-inside: avoid; }
+    .glossary details { break-inside: avoid; }
+  }
+
+  @media (max-width: 480px) {
+    .site-header h1 { font-size: 1.4rem; }
+    .section-title { font-size: 1.12rem; padding: 15px 18px; }
+    .section-body { padding: 22px 18px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="eyebrow">試作課 タスク管理</div>
+    <h1>スプレッドシートで<br>「今なにをやっているか」がわかる</h1>
+    <p>Trelloからの移行にあわせた、使い方ガイドです。むずかしい操作はありません。自分の役割に合わせて読み進めてください。</p>
+  </div>
+</header>
+
+<div class="intro">
+  <div class="wrap">
+    <p>依頼はすべて1つのフォームから送られ、スプレッドシートに自動で並びます。試作チームはそこでステータスを更新するだけで、誰が・何を・いつまでにやっているかがチーム全員から見えるようになります。</p>
+    <div class="flow" aria-label="全体の流れ">
+      <div class="flow-step">📮 依頼する</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">📋 自動で登録</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">🔔 Chatに通知</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">🔧 対応・更新</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">📚 記録に残す</div>
+    </div>
+  </div>
+</div>
+
+<nav class="top-nav">
+  <a class="btn-requester" href="#requester">📮 依頼する方はこちら</a>
+  <a class="btn-team" href="#team">🔧 試作チームメンバーはこちら</a>
+  <a class="btn-ghost" href="#glossary">📖 用語集</a>
+  <a class="btn-ghost" href="#help">💬 困ったときは</a>
+</nav>
+
+
+<!-- ================================================================
+     セクション1：依頼者向け
+     ================================================================ -->
+<section class="section" id="requester">
+  <div class="section-title requester"><span class="tag">FOR</span>依頼する方へ（商品企画・R&amp;D・QCなど）</div>
+  <div class="section-body">
+
+    <p class="lead">試作課への依頼はすべて<strong>依頼フォーム</strong>から送信してください。フォームのURLは試作課から共有されます（ダッシュボードシートの下部にも記載）。</p>
+
+    <div class="step">
+      <div class="step-badge blue">1</div>
+      <div class="step-content">
+        <h3>依頼フォームURLを開く</h3>
+        <ul>
+          <li>試作課から共有されたURLをクリックして開く</li>
+          <li>URLが分からない場合は試作課に確認してください</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge blue">2</div>
+      <div class="step-content">
+        <h3>必要事項を入力する</h3>
+        <ul>
+          <li><strong>タイトル</strong>を入力する（例：27アトリエ新柄アミュレット試作）</li>
+          <li><strong>依頼項目</strong>を選ぶ（試作・検体製作・裁断・作業指示書・資料作成など）</li>
+          <li><strong>部署名</strong>を選ぶ（商品企画・R&amp;D・QCなど）</li>
+          <li><strong>氏名</strong>を入力する</li>
+          <li><strong>年度</strong>を選ぶ（26年度・27年度…）</li>
+          <li><strong>ブランド</strong>を選ぶ（全ブランドの場合は「all」）</li>
+          <li><strong>シリーズ・数量</strong>を入力する（該当なしの場合は「なし」）</li>
+          <li><strong>仕様</strong>（素材・色・金具など）を入力する　任意</li>
+          <li><strong>希望納期</strong>を入力する</li>
+          <li><strong>依頼内容の全体スケジュールURL</strong>を入力する（必須）</li>
+          <li><strong>納品先</strong>を入力する（例：依頼主・品質管理・西新井・日本橋）</li>
+          <li><strong>材料提供予定日</strong>を入力する　任意・未定の場合は空欄でOK</li>
+          <li><strong>参考資料URL</strong>（依頼書・スプレッドシート・仕様書など）　任意</li>
+          <li><strong>その他共有</strong>（注意事項・申し送りなど）　任意</li>
+        </ul>
+        <div class="tip brass">迷ったら空欄のまま送信してOKです。あとから試作課に直接連絡すれば大丈夫です。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge blue">3</div>
+      <div class="step-content">
+        <h3>「送信」ボタンを押す</h3>
+        <ul>
+          <li>「送信」ボタンを押すと確認メッセージが表示される</li>
+          <li>確認メッセージが出たら送信完了</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">送信後に自動で起きること</h3>
+    <ul class="after-list">
+      <li><span class="mark">✓</span> 試作課のスプレッドシート「依頼一覧」に自動登録される</li>
+      <li><span class="mark">✓</span> 試作課のGoogle Chatに通知が届く</li>
+      <li><span class="mark">✓</span> 試作チームが内容を確認して担当者を決める</li>
+    </ul>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">よくある質問</h3>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q">Q. 材料提供予定日が未定の場合は？</div>
+        <div class="a">空欄のまま送信してOKです。決まったら試作課に直接連絡してください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">Q. 急ぎの依頼はどうすればいい？</div>
+        <div class="a">フォームの入力が間に合わない場合は、先に試作課へ直接連絡してから、後でフォームを送ってください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">Q. 送信後に内容を変えたい場合は？</div>
+        <div class="a">フォームからは変更できません。試作課に直接連絡してください。スプレッドシート側で修正します。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">Q. 進捗を確認したいときは？</div>
+        <div class="a">試作課に確認してください。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================================================
+     セクション2：試作チームメンバー向け
+     ================================================================ -->
+<section class="section" id="team">
+  <div class="section-title team"><span class="tag">FOR</span>試作チームメンバーの方へ</div>
+  <div class="section-body">
+
+    <p class="lead">スプレッドシートの操作手順をまとめています。はじめての方は上から順に読んでください。</p>
+
+    <div class="step">
+      <div class="step-badge brass">1</div>
+      <div class="step-content">
+        <h3>Google Chatで新着依頼を確認する</h3>
+        <ul>
+          <li>フォームが送信されるとChatに自動通知が届く</li>
+          <li>通知内容：依頼ID・タイトル・ブランド・年度・部署名・氏名・希望納期・優先度</li>
+          <li>通知のリンクからスプレッドシートを開ける</li>
+        </ul>
+        <div class="tip brass">希望納期の3日前にもChat通知が自動で届きます。</div>
+        <div class="tip brass">通知は依頼ごとに「会話（スレッド）」としてまとまります。一覧に新着が見当たらないときは、カードをクリックしてスレッドの中を開いて確認してください。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge brass">2</div>
+      <div class="step-content">
+        <h3>依頼一覧で優先度・氏名を確認する</h3>
+        <ul>
+          <li>スプレッドシートの「依頼一覧」シートを開く</li>
+          <li>新着依頼（依頼番号が自動入力済み）を確認する</li>
+          <li>P列「優先度」をドロップダウンで確認・修正する（至急・高・中・低）</li>
+        </ul>
+        <div class="tip">優先度は希望納期の営業日数から自動設定されます（5営業日以内→至急／10営業日以内→高）。必要に応じて修正してください。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge brass">3</div>
+      <div class="step-content">
+        <h3>自分の担当を絞り込む</h3>
+        <ul>
+          <li>メニュー「表示」→「フィルタ表示」→「新しいフィルタ表示を作成」</li>
+          <li>氏名列で自分の名前だけにチェックを入れる</li>
+          <li>自分だけの絞り込み画面になる（他の人の画面には影響しない）</li>
+        </ul>
+        <div class="tip moss">保存した「フィルタ表示」は次回から「表示」→「フィルタ表示」から1クリックで呼び出せます。ヘッダー行の▼（フィルタ）ボタンは全員の画面が変わってしまうため、複数人で使うシートでは使わないでください。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge brass">4</div>
+      <div class="step-content">
+        <h3>作業を始めるとき</h3>
+        <ul>
+          <li>該当する行のA列「ステータス」をクリックする</li>
+          <li>「作業中」を選ぶ</li>
+          <li>行が緑色に変わり、Google Chatに通知が届く</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge brass">5</div>
+      <div class="step-content">
+        <h3>作業が終わったとき</h3>
+        <ul>
+          <li>A列「ステータス」をクリックして「完了」を選ぶ</li>
+          <li>行がグレーに変わり、Google Chatに完了通知が届く</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge brass">6</div>
+      <div class="step-content">
+        <h3>ガントチャートで全体スケジュールを確認する</h3>
+        <ul>
+          <li>「ガントチャート」シートを開く</li>
+          <li>優先度順に未完了タスクが一覧表示される</li>
+          <li><strong>薄い黄色のバー</strong>＝依頼元の希望スケジュール（依頼日〜希望納期）</li>
+          <li><strong>緑色のバー</strong>＝試作課が決めた実施スケジュール（実施開始日〜実施終了日）。黄色バーの上に重なって表示される</li>
+          <li>上部メニュー「📅 ガントチャートを更新」を実行すると最新データに更新される</li>
+        </ul>
+        <div class="tip moss">実施スケジュール（緑バー）を出したいときは、依頼一覧のL列「実施開始日」・M列「実施終了日」に日付を入れてください。入力するとガントチャートが自動で更新されます。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-badge brass">7</div>
+      <div class="step-content">
+        <h3>週次メンテナンス（週1回・金曜など）</h3>
+        <ul>
+          <li>上部メニュー「📦 完了済み依頼をアーカイブに移動」を実行する</li>
+          <li>ステータスが「完了」の行が「完了アーカイブ」シートに移動し、依頼一覧がスッキリする</li>
+          <li>ダッシュボードで来週の状況を確認する</li>
+          <li>「3日以内に納期が来る依頼」欄・「至急・高」の件数をチェックする</li>
+        </ul>
+        <div class="tip brick">アーカイブに移動したデータは「完了アーカイブ」シートに残ります。消えるわけではありません。</div>
+      </div>
+    </div>
+
+    <div class="tip brass">💡 1つの依頼が複数の工程に分かれる場合の管理方法や、気づき・ノウハウの記録方法は現在見直し中です。当面は依頼一覧の1行だけで運用してください。困ったことがあれば試作課のリーダーに相談してください。</div>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">行の色の意味</h3>
+    <table class="color-table">
+      <tr><td style="background:var(--moss-tint);color:var(--moss);">薄緑の行</td><td>作業中</td></tr>
+      <tr><td style="background:var(--brass-tint);color:var(--brass-ink);">薄黄の行</td><td>一時中断</td></tr>
+      <tr><td style="background:var(--surface-soft);color:var(--ink-faint);">グレーの行</td><td>完了</td></tr>
+      <tr><td style="background:var(--brick-tint);color:var(--brick);">薄赤の行</td><td>至急（未完了）</td></tr>
+    </table>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">依頼番号のルール</h3>
+    <p style="color:var(--ink-soft);font-size:.92rem;margin-bottom:6px;">依頼項目を選ぶと依頼番号は自動で入力されます。手入力は不要です。「種別」は依頼項目から自動判定される分類（ダッシュボード集計用）で、依頼番号の頭文字には使いません。</p>
+    <table class="prefix-table">
+      <tr><th>依頼項目</th><th>種別</th><th>番号の頭文字</th><th>例</th></tr>
+      <tr><td>試作</td><td>試作依頼</td><td class="code">SIS</td><td class="code">SIS-001</td></tr>
+      <tr><td>検体製作</td><td>試作依頼</td><td class="code">KEN</td><td class="code">KEN-001</td></tr>
+      <tr><td>裁断</td><td>試作依頼</td><td class="code">SAI</td><td class="code">SAI-001</td></tr>
+      <tr><td>作業指示書</td><td>試作依頼</td><td class="code">SAG</td><td class="code">SAG-001</td></tr>
+      <tr><td>承認サンプル</td><td>試作依頼</td><td class="code">SHO</td><td class="code">SHO-001</td></tr>
+      <tr><td>撮影サンプル</td><td>試作依頼</td><td class="code">SAT</td><td class="code">SAT-001</td></tr>
+      <tr><td>広報サンプル</td><td>試作依頼</td><td class="code">KOU</td><td class="code">KOU-001</td></tr>
+      <tr><td>量産テスト</td><td>試作依頼</td><td class="code">RYO</td><td class="code">RYO-001</td></tr>
+      <tr><td>検証・計測</td><td>課題</td><td class="code">KAD</td><td class="code">KAD-001</td></tr>
+      <tr><td>見積依頼</td><td>提案</td><td class="code">MIT</td><td class="code">MIT-001</td></tr>
+      <tr><td>修理</td><td>修理</td><td class="code">REP</td><td class="code">REP-001</td></tr>
+      <tr><td>資料作成</td><td>課題</td><td class="code">KAD</td><td class="code">KAD-002</td></tr>
+      <tr><td>その他</td><td>試作依頼</td><td class="code">OTH</td><td class="code">OTH-001</td></tr>
+    </table>
+    <div class="tip brass">「イレギュラー」種別は依頼項目からは自動発生しません。緊急対応など特別な事情がある場合は、依頼一覧の「種別」列を手動で「イレギュラー」に変更してください（依頼番号のプレフィックスは変わりません）。</div>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">よくある質問</h3>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="q brass">Q. 間違えてステータスを変えてしまった</div>
+        <div class="a">もう一度クリックして正しいステータスに直せば大丈夫です。データが消えることはありません。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q brass">Q. フィルタ表示のやり方を忘れた</div>
+        <div class="a">上のSTEP3を見直すか、試作課のリーダーに聞いてください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q brass">Q. 依頼が複数のブランドにまたがる</div>
+        <div class="a">依頼元に確認のうえ、メインとなるブランドを選んで登録してください。判断に迷う場合は「その他共有」欄に記載を。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================================================
+     セクション3：用語集
+     ================================================================ -->
+<section class="section" id="glossary">
+  <div class="section-title neutral">📖 用語集</div>
+  <div class="section-body">
+    <p class="lead">ガイドの中で出てくる言葉を、かんたんに説明しています。わからない言葉が出てきたら開いてみてください。</p>
+    <div class="glossary">
+      <details>
+        <summary>スプレッドシート／シート<span class="arrow">▸</span></summary>
+        <p>スプレッドシートは、Excelのように表計算ができるGoogleの無料ソフトです。パソコンにインストールしなくても、ブラウザ（Chromeなど）があれば誰でも使えます。「シート」はその中にある1枚1枚のページのこと。画面下のタブ（依頼一覧・ガントチャートなど）をクリックすると切り替わります。</p>
+      </details>
+      <details>
+        <summary>ドロップダウン<span class="arrow">▸</span></summary>
+        <p>セルをクリックすると選択肢が出てくる入力方法です。自由に文字を打つのではなく、あらかじめ決まった候補の中から選ぶので、表記ゆれや入力ミスを防げます。</p>
+      </details>
+      <details>
+        <summary>フィルタ表示<span class="arrow">▸</span></summary>
+        <p>自分が見たい行だけに絞り込む機能です。自分専用の表示なので、保存しても他の人の画面には影響しません。ヘッダー行の▼ボタン（全員の画面が変わる「フィルタ」）とは別物なので注意してください。</p>
+      </details>
+      <details>
+        <summary>Google Chat<span class="arrow">▸</span></summary>
+        <p>社内で使っているチャットツールです。依頼フォームが送信されたときや、納期が近づいたときに、自動でメッセージが届きます。</p>
+      </details>
+      <details>
+        <summary>依頼番号<span class="arrow">▸</span></summary>
+        <p>依頼ごとに自動でつく管理番号です（例：SIS-001）。あとで検索するときの目印になります。</p>
+      </details>
+      <details>
+        <summary>優先度<span class="arrow">▸</span></summary>
+        <p>対応の緊急さを示す区分です（至急・高・中・低）。希望納期が近いほど自動的に高く設定されますが、状況に応じて手動で変更してかまいません。</p>
+      </details>
+      <details>
+        <summary>ガントチャート<span class="arrow">▸</span></summary>
+        <p>依頼ごとのスケジュールを横棒グラフで一覧できる表です。誰が・いつ・何をやっているかが一目でわかります。</p>
+      </details>
+      <details>
+        <summary>アーカイブ<span class="arrow">▸</span></summary>
+        <p>完了した依頼を保管しておく場所です。消えるのではなく、別のシートに移動して後から見返せる状態で残ります。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     セクション4：困ったときは
+     ================================================================ -->
+<section class="section" id="help">
+  <div class="section-title neutral">💬 困ったときは</div>
+  <div class="section-body">
+    <div class="tip brass lg">💬 使ってみた感想・気づいたこと・要望は、<a href="https://docs.google.com/spreadsheets/d/18DC4mKfCzyXE7o1e25fomSSC2dCNV7gf5Q9-LKZ_9VE/edit" target="_blank" rel="noopener">「ご意見・ご感想」シート</a>に自由に書き込んでください。他の人の書き込みも見られるので、同じことで困っている人がいないか確認にもなります。試作課で内容を確認し、同じシートの「試作課からの返信」欄に対応状況（すぐ対応できること／検討中のこと／今回は見送ること）を書いてお返しします。</div>
+  </div>
+</section>
+
+
+<footer>
+  試作チーム タスク管理システム 使い方ガイド
+</footer>
+
+</body>
+</html>
