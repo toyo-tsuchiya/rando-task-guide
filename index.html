@@ -625,9 +625,10 @@
           <li>優先度順に未完了タスクが一覧表示される</li>
           <li><strong>薄い黄色のバー</strong>＝依頼元の希望スケジュール（依頼日〜希望納期）</li>
           <li><strong>緑色のバー</strong>＝試作課が決めた実施スケジュール（実施開始日〜実施終了日）。黄色バーの上に重なって表示される</li>
+          <li><strong>薄い赤のマス</strong>＝材料提供予定日（1日分だけ表示）。実施スケジュールの緑と重なっていても消えずに残る</li>
           <li>上部メニュー「📅 ガントチャートを更新」を実行すると最新データに更新される</li>
         </ul>
-        <div class="tip moss">実施スケジュール（緑バー）を出したいときは、依頼一覧のL列「実施開始日」・M列「実施終了日」に日付を入れてください。入力するとガントチャートが自動で更新されます。</div>
+        <div class="tip moss">実施スケジュール（緑バー）を出したいときは、依頼一覧のL列「実施開始日」・M列「実施終了日」に日付を入れてください。入力するとガントチャートが自動で更新されます。材料提供予定日（薄い赤）はO列に日付を入れると自動で表示されます。</div>
       </div>
     </div>
 
@@ -663,20 +664,21 @@
     <p style="color:var(--ink-soft);font-size:.92rem;margin-bottom:6px;">依頼項目を選ぶと依頼番号は自動で入力されます。手入力は不要です。「種別」は依頼項目から自動判定される分類（ダッシュボード集計用）で、依頼番号の頭文字には使いません。</p>
     <table class="prefix-table">
       <tr><th>依頼項目</th><th>種別</th><th>番号の頭文字</th><th>例</th></tr>
-      <tr><td>試作</td><td>試作依頼</td><td class="code">SIS</td><td class="code">SIS-001</td></tr>
-      <tr><td>検体製作</td><td>試作依頼</td><td class="code">KEN</td><td class="code">KEN-001</td></tr>
-      <tr><td>裁断</td><td>試作依頼</td><td class="code">SAI</td><td class="code">SAI-001</td></tr>
-      <tr><td>作業指示書</td><td>試作依頼</td><td class="code">SAG</td><td class="code">SAG-001</td></tr>
-      <tr><td>承認サンプル</td><td>試作依頼</td><td class="code">SHO</td><td class="code">SHO-001</td></tr>
-      <tr><td>撮影サンプル</td><td>試作依頼</td><td class="code">SAT</td><td class="code">SAT-001</td></tr>
-      <tr><td>広報サンプル</td><td>試作依頼</td><td class="code">KOU</td><td class="code">KOU-001</td></tr>
-      <tr><td>量産テスト</td><td>試作依頼</td><td class="code">RYO</td><td class="code">RYO-001</td></tr>
-      <tr><td>検証・計測</td><td>課題</td><td class="code">KAD</td><td class="code">KAD-001</td></tr>
-      <tr><td>見積依頼</td><td>提案</td><td class="code">MIT</td><td class="code">MIT-001</td></tr>
+      <tr><td>試作</td><td>試作依頼</td><td class="code">SAM</td><td class="code">SAM-001</td></tr>
+      <tr><td>検体製作</td><td>試作依頼</td><td class="code">SPE</td><td class="code">SPE-001</td></tr>
+      <tr><td>裁断</td><td>試作依頼</td><td class="code">CUT</td><td class="code">CUT-001</td></tr>
+      <tr><td>作業指示書</td><td>試作依頼</td><td class="code">WIS</td><td class="code">WIS-001</td></tr>
+      <tr><td>承認サンプル</td><td>試作依頼</td><td class="code">APP</td><td class="code">APP-001</td></tr>
+      <tr><td>撮影サンプル</td><td>試作依頼</td><td class="code">CAT</td><td class="code">CAT-001</td></tr>
+      <tr><td>広報サンプル</td><td>試作依頼</td><td class="code">PRS</td><td class="code">PRS-001</td></tr>
+      <tr><td>量産テスト</td><td>試作依頼</td><td class="code">MPT</td><td class="code">MPT-001</td></tr>
+      <tr><td>検証・計測</td><td>課題</td><td class="code">VER</td><td class="code">VER-001</td></tr>
+      <tr><td>見積依頼</td><td>提案</td><td class="code">QUO</td><td class="code">QUO-001</td></tr>
       <tr><td>修理</td><td>修理</td><td class="code">REP</td><td class="code">REP-001</td></tr>
-      <tr><td>資料作成</td><td>課題</td><td class="code">KAD</td><td class="code">KAD-002</td></tr>
+      <tr><td>資料作成</td><td>課題</td><td class="code">DOC</td><td class="code">DOC-001</td></tr>
       <tr><td>その他</td><td>試作依頼</td><td class="code">OTH</td><td class="code">OTH-001</td></tr>
     </table>
+    <div class="tip brass">頭文字は各依頼項目の英語表記（例：試作＝sample→SAM）から決めています。※すでに発行済みの旧番号（SIS-001など）はそのまま残ります。新しく発行される番号だけがこのルールになります。</div>
     <div class="tip brass">「イレギュラー」種別は依頼項目からは自動発生しません。緊急対応など特別な事情がある場合は、依頼一覧の「種別」列を手動で「イレギュラー」に変更してください（依頼番号のプレフィックスは変わりません）。</div>
 
     <hr class="divider">
@@ -727,7 +729,7 @@
       </details>
       <details>
         <summary>依頼番号<span class="arrow">▸</span></summary>
-        <p>依頼ごとに自動でつく管理番号です（例：SIS-001）。あとで検索するときの目印になります。</p>
+        <p>依頼ごとに自動でつく管理番号です（例：SAM-001）。あとで検索するときの目印になります。</p>
       </details>
       <details>
         <summary>優先度<span class="arrow">▸</span></summary>
