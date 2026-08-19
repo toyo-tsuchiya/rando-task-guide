@@ -124,9 +124,6 @@
     margin-top: 12px;
     opacity: .82;
     font-size: .95rem;
-    max-width: 46ch;
-    margin-left: auto;
-    margin-right: auto;
     line-height: 1.7;
   }
 
@@ -287,6 +284,27 @@
     background: var(--ink-faint);
   }
 
+  /* ===== CTAボタン ===== */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 12px 24px;
+    border-radius: 9px;
+    background: var(--indigo);
+    color: #fff;
+    font-weight: 700;
+    font-size: .95rem;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: background .15s ease;
+  }
+  .btn-cta:hover { background: var(--indigo-ink); }
+
+  .cta-row { margin: 16px 0; }
+  .cta-row p { margin-top: 8px; color: var(--ink-soft); font-size: .92rem; }
+
   /* ===== ヒント・注意 ===== */
   .tip {
     background: var(--indigo-tint);
@@ -424,10 +442,61 @@
 <header class="site-header">
   <div class="wrap">
     <div class="eyebrow">試作課 タスク管理</div>
-    <h1>スプレッドシートで<br>「今なにをやっているか」がわかる</h1>
-    <p>Trelloからの移行にあわせた、使い方ガイドです。むずかしい操作はありません。自分の役割に合わせて読み進めてください。</p>
+    <h1>試作依頼の流れ</h1>
+    <p>Trelloからスプレッドシート管理に移行するための使い方ガイドです。</p>
   </div>
 </header>
+
+<nav class="top-nav">
+  <a class="btn-ghost" href="#why">🔄 なぜ移行するの？</a>
+  <a class="btn-requester" href="#requester">📮 依頼する方はこちら</a>
+  <a class="btn-team" href="#team">🔧 試作チームメンバーはこちら</a>
+  <a class="btn-ghost" href="#glossary">📖 用語集</a>
+  <a class="btn-ghost" href="#help">💬 困ったときは</a>
+</nav>
+
+
+<!-- ================================================================
+     セクション0：なぜこのシステムに移行するのか
+     ================================================================ -->
+<section class="section" id="why">
+  <div class="section-title neutral">🔄 なぜGoogleスプレッドシートに移行するのか</div>
+  <div class="section-body">
+    <p class="lead">これまではTrelloで依頼・進捗を管理してきましたが、関係者が増えてTrelloの無料プランの人数上限に達したため、Google Workspace（スプレッドシート）へ移行します。</p>
+
+    <h3 class="block-heading">移行のメリット</h3>
+    <ul class="after-list">
+      <li><span class="mark">✓</span> 人数の上限なく、関係者みんなが同じ場所で依頼状況を見られる</li>
+      <li><span class="mark">✓</span> 追加コストなしで運用できる</li>
+      <li><span class="mark">✓</span> すでに使い慣れているスプレッドシートなので、新しいツールを覚える負担が少ない</li>
+      <li><span class="mark">✓</span> ガントチャートで全体スケジュールがひと目でわかる</li>
+      <li><span class="mark">✓</span> Google Chatへの自動通知で、新着依頼や進捗の変化にすぐ気づける</li>
+    </ul>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">登場するツール</h3>
+    <div class="flow" aria-label="登場するツール">
+      <div class="flow-step">📮 依頼用のフォーム</div>
+      <div class="flow-step">📊 依頼管理スプレッドシート（【試作スケジュール】：ランドセル）</div>
+      <div class="flow-step">💬 Google Chat（通知・依頼ごとの個別共有）</div>
+    </div>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">Trelloでできていたことは、こう変わります</h3>
+    <table class="prefix-table">
+      <tr><th>Trelloでの管理</th><th>新システムでの対応</th></tr>
+      <tr><td>リスト（未着手・作業中・完了など）でカードを分けて管理</td><td>📊 スプシ：依頼一覧の「ステータス」列を選ぶだけ。行の色も自動で変わる</td></tr>
+      <tr><td>ラベル（種別・至急など）で分類</td><td>📊 スプシ：「種別」列・「優先度」列で管理</td></tr>
+      <tr><td>カードを別リストへ移動して完了管理</td><td>📊 スプシ：ステータスを「完了」にするだけ。あとで自動的に「完了アーカイブ」へ移動</td></tr>
+      <tr><td>月ごとのアーカイブリスト</td><td>📊 スプシ：「完了アーカイブ」シートに自動で蓄積</td></tr>
+      <tr><td>カードのコメントで経緯・申し送りを記録</td><td>📮フォーム：「その他共有」欄などに記載（詳しい記録方法は現在見直し中）</td></tr>
+      <tr><td>カードのコメントで行っていた個別のやりとり</td><td>💬 Google Chat：スレッドにて進捗相談、画像や追加の資料を共有</td></tr>
+    </table>
+    <div class="tip">操作に迷ったときは、下の「依頼する方はこちら」「試作チームメンバーはこちら」から具体的な手順を確認してください。</div>
+  </div>
+</section>
 
 <div class="intro">
   <div class="wrap">
@@ -446,13 +515,6 @@
   </div>
 </div>
 
-<nav class="top-nav">
-  <a class="btn-requester" href="#requester">📮 依頼する方はこちら</a>
-  <a class="btn-team" href="#team">🔧 試作チームメンバーはこちら</a>
-  <a class="btn-ghost" href="#glossary">📖 用語集</a>
-  <a class="btn-ghost" href="#help">💬 困ったときは</a>
-</nav>
-
 
 <!-- ================================================================
      セクション1：依頼者向け
@@ -467,10 +529,8 @@
       <div class="step-badge blue">1</div>
       <div class="step-content">
         <h3>依頼フォームURLを開く</h3>
-        <ul>
-          <li>試作課から共有されたURLをクリックして開く</li>
-          <li>URLが分からない場合は試作課に確認してください</li>
-        </ul>
+        <a class="btn-cta" href="https://docs.google.com/forms/d/e/1FAIpQLScWmfI-PaPD3jcUokdxYWt7QaNOd0WvatwGgeWkNN2E1lae_w/viewform" target="_blank" rel="noopener">📮依頼フォーム</a>
+        <div class="tip">※(リンクURLは変更されることがあります)</div>
       </div>
     </div>
 
@@ -478,23 +538,6 @@
       <div class="step-badge blue">2</div>
       <div class="step-content">
         <h3>必要事項を入力する</h3>
-        <ul>
-          <li><strong>タイトル</strong>を入力する（例：27アトリエ新柄アミュレット試作）</li>
-          <li><strong>依頼項目</strong>を選ぶ（試作・検体製作・裁断・作業指示書・資料作成など）</li>
-          <li><strong>部署名</strong>を選ぶ（商品企画・R&amp;D・QCなど）</li>
-          <li><strong>氏名</strong>を入力する</li>
-          <li><strong>年度</strong>を選ぶ（26年度・27年度…）</li>
-          <li><strong>ブランド</strong>を選ぶ（全ブランドの場合は「all」）</li>
-          <li><strong>シリーズ・数量</strong>を入力する（該当なしの場合は「なし」）</li>
-          <li><strong>仕様</strong>（素材・色・金具など）を入力する　任意</li>
-          <li><strong>希望納期</strong>を入力する</li>
-          <li><strong>依頼内容の全体スケジュールURL</strong>を入力する（必須）</li>
-          <li><strong>納品先</strong>を入力する（例：依頼主・品質管理・西新井・日本橋）</li>
-          <li><strong>材料提供予定日</strong>を入力する　任意・未定の場合は空欄でOK</li>
-          <li><strong>参考資料URL</strong>（依頼書・スプレッドシート・仕様書など）　任意</li>
-          <li><strong>その他共有</strong>（注意事項・申し送りなど）　任意</li>
-        </ul>
-        <div class="tip brass">迷ったら空欄のまま送信してOKです。あとから試作課に直接連絡すれば大丈夫です。</div>
       </div>
     </div>
 
@@ -502,21 +545,20 @@
       <div class="step-badge blue">3</div>
       <div class="step-content">
         <h3>「送信」ボタンを押す</h3>
-        <ul>
-          <li>「送信」ボタンを押すと確認メッセージが表示される</li>
-          <li>確認メッセージが出たら送信完了</li>
-        </ul>
       </div>
     </div>
 
     <hr class="divider">
 
-    <h3 class="block-heading">送信後に自動で起きること</h3>
-    <ul class="after-list">
-      <li><span class="mark">✓</span> 試作課のスプレッドシート「依頼一覧」に自動登録される</li>
-      <li><span class="mark">✓</span> 試作課のGoogle Chatに通知が届く</li>
-      <li><span class="mark">✓</span> 試作チームが内容を確認して担当者を決める</li>
-    </ul>
+    <h3 class="block-heading">送信後の確認は</h3>
+    <div class="cta-row">
+      <a class="btn-cta" href="https://docs.google.com/spreadsheets/d/1KEDBn66CmB0FEoqsdNt6vQU346gO81BC4RIgrX0TDDs/edit?gid=2036268838#gid=2036268838" target="_blank" rel="noopener">📊 依頼管理スプレッドシート</a>
+      <p>（【試作スケジュール】：ランドセル）の依頼一覧に追記される</p>
+    </div>
+    <div class="cta-row">
+      <a class="btn-cta" href="https://chat.google.com/room/AAQALSwlOJA?cls=7" target="_blank" rel="noopener">💬 Google Chat</a>
+      <p>（通知・依頼ごとの個別共有）に通知が届く</p>
+    </div>
 
     <hr class="divider">
 
@@ -524,19 +566,19 @@
     <div class="faq">
       <div class="faq-item">
         <div class="q">Q. 材料提供予定日が未定の場合は？</div>
-        <div class="a">空欄のまま送信してOKです。決まったら試作課に直接連絡してください。</div>
+        <div class="a">空欄のまま送信してOKですが、決まり次第、Chatのスレッドで試作課に連絡してください（生産管理準備のものは特に）。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 急ぎの依頼はどうすればいい？</div>
-        <div class="a">フォームの入力が間に合わない場合は、先に試作課へ直接連絡してから、後でフォームを送ってください。</div>
+        <div class="a">可能な限りフォームに入力をお願いしています。タスク管理のためご協力をお願い致します。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 送信後に内容を変えたい場合は？</div>
-        <div class="a">フォームからは変更できません。試作課に直接連絡してください。スプレッドシート側で修正します。</div>
+        <div class="a">フォームからは変更できません。ログを残すためにスレッドで連絡いただけると助かります。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 進捗を確認したいときは？</div>
-        <div class="a">試作課に確認してください。</div>
+        <div class="a">「依頼一覧」シートを見れば確認できます。いちばん左の「ステータス」列（未着手・作業中・一時中断・完了）と、それに連動した行の色で、状況がひと目でわかります。<br><br>現在、スプレッドシートの編集は試作課のみとさせていただいています。ご自身の依頼だけを絞り込めるフィルタ表示もご用意できますので、ご希望の方は<a href="https://docs.google.com/spreadsheets/d/18DC4mKfCzyXE7o1e25fomSSC2dCNV7gf5Q9-LKZ_9VE/edit" target="_blank" rel="noopener">「ご意見・ご感想」シート</a>までお知らせください。</div>
       </div>
     </div>
 
@@ -559,7 +601,7 @@
         <h3>Google Chatで新着依頼を確認する</h3>
         <ul>
           <li>フォームが送信されるとChatに自動通知が届く</li>
-          <li>通知内容：依頼ID・タイトル・ブランド・年度・部署名・氏名・希望納期・優先度</li>
+          <li>通知内容：ステータス・ブランド・依頼内容・依頼番号・年度・希望納期・部署名・氏名</li>
           <li>通知のリンクからスプレッドシートを開ける</li>
         </ul>
         <div class="tip brass">希望納期の3日前にもChat通知が自動で届きます。</div>
@@ -576,7 +618,7 @@
           <li>新着依頼（依頼番号が自動入力済み）を確認する</li>
           <li>P列「優先度」をドロップダウンで確認・修正する（至急・高・中・低）</li>
         </ul>
-        <div class="tip">優先度は希望納期の営業日数から自動設定されます（5営業日以内→至急／10営業日以内→高）。必要に応じて修正してください。</div>
+        <div class="tip brass">優先度は希望納期の営業日数から自動設定されます（5営業日以内→至急／10営業日以内→高）。必要に応じて修正してください。</div>
       </div>
     </div>
 
@@ -589,7 +631,7 @@
           <li>氏名列で自分の名前だけにチェックを入れる</li>
           <li>自分だけの絞り込み画面になる（他の人の画面には影響しない）</li>
         </ul>
-        <div class="tip moss">保存した「フィルタ表示」は次回から「表示」→「フィルタ表示」から1クリックで呼び出せます。ヘッダー行の▼（フィルタ）ボタンは全員の画面が変わってしまうため、複数人で使うシートでは使わないでください。</div>
+        <div class="tip brass">保存した「フィルタ表示」は次回から「表示」→「フィルタ表示」から1クリックで呼び出せます。ヘッダー行の▼（フィルタ）ボタンは全員の画面が変わってしまうため、複数人で使うシートでは使わないでください。</div>
       </div>
     </div>
 
@@ -628,7 +670,7 @@
           <li><strong>薄い赤のマス</strong>＝材料提供予定日（1日分だけ表示）。実施スケジュールの緑と重なっていても消えずに残る</li>
           <li>上部メニュー「📅 ガントチャートを更新」を実行すると最新データに更新される</li>
         </ul>
-        <div class="tip moss">実施スケジュール（緑バー）を出したいときは、依頼一覧のL列「実施開始日」・M列「実施終了日」に日付を入れてください。入力するとガントチャートが自動で更新されます。材料提供予定日（薄い赤）はO列に日付を入れると自動で表示されます。</div>
+        <div class="tip brass">実施スケジュール（緑バー）を出したいときは、依頼一覧のL列「実施開始日」・M列「実施終了日」に日付を入れてください。入力するとガントチャートが自動で更新されます。材料提供予定日（薄い赤）はO列に日付を入れると自動で表示されます。</div>
       </div>
     </div>
 
@@ -642,7 +684,7 @@
           <li>ダッシュボードで来週の状況を確認する</li>
           <li>「3日以内に納期が来る依頼」欄・「至急・高」の件数をチェックする</li>
         </ul>
-        <div class="tip brick">アーカイブに移動したデータは「完了アーカイブ」シートに残ります。消えるわけではありません。</div>
+        <div class="tip brass">アーカイブに移動したデータは「完了アーカイブ」シートに残ります。消えるわけではありません。</div>
       </div>
     </div>
 
@@ -679,7 +721,7 @@
       <tr><td>その他</td><td>試作依頼</td><td class="code">OTH</td><td class="code">OTH-001</td></tr>
     </table>
     <div class="tip brass">頭文字は各依頼項目の英語表記（例：試作＝sample→SAM）から決めています。※すでに発行済みの旧番号（SIS-001など）はそのまま残ります。新しく発行される番号だけがこのルールになります。</div>
-    <div class="tip brass">「イレギュラー」種別は依頼項目からは自動発生しません。緊急対応など特別な事情がある場合は、依頼一覧の「種別」列を手動で「イレギュラー」に変更してください（依頼番号のプレフィックスは変わりません）。</div>
+    <div class="tip brass">「イレギュラー」は、依頼一覧シートに直接手入力で追加した依頼がある場合にお使いください。それ以外はフォーム経由で記録するのが安全です。※ダッシュボードでは「イレギュラー」の件数も集計されます。</div>
 
     <hr class="divider">
 
@@ -711,14 +753,6 @@
   <div class="section-body">
     <p class="lead">ガイドの中で出てくる言葉を、かんたんに説明しています。わからない言葉が出てきたら開いてみてください。</p>
     <div class="glossary">
-      <details>
-        <summary>スプレッドシート／シート<span class="arrow">▸</span></summary>
-        <p>スプレッドシートは、Excelのように表計算ができるGoogleの無料ソフトです。パソコンにインストールしなくても、ブラウザ（Chromeなど）があれば誰でも使えます。「シート」はその中にある1枚1枚のページのこと。画面下のタブ（依頼一覧・ガントチャートなど）をクリックすると切り替わります。</p>
-      </details>
-      <details>
-        <summary>ドロップダウン<span class="arrow">▸</span></summary>
-        <p>セルをクリックすると選択肢が出てくる入力方法です。自由に文字を打つのではなく、あらかじめ決まった候補の中から選ぶので、表記ゆれや入力ミスを防げます。</p>
-      </details>
       <details>
         <summary>フィルタ表示<span class="arrow">▸</span></summary>
         <p>自分が見たい行だけに絞り込む機能です。自分専用の表示なので、保存しても他の人の画面には影響しません。ヘッダー行の▼ボタン（全員の画面が変わる「フィルタ」）とは別物なので注意してください。</p>
