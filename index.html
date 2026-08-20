@@ -258,8 +258,9 @@
     font-size: 1.05rem;
     color: #fff;
   }
-  .step-badge.blue  { background: var(--indigo); }
-  .step-badge.brass { background: var(--brass); }
+  .step-badge.blue    { background: var(--indigo); }
+  .step-badge.brass   { background: var(--brass); }
+  .step-badge.neutral { background: var(--ink-faint); }
 
   .step-content { flex: 1; min-width: 0; }
   .step-content h3 {
@@ -403,6 +404,14 @@
     line-height: 1.75;
   }
 
+  /* ===== 小さな注記 ===== */
+  .fine-print {
+    margin-top: 16px;
+    color: var(--ink-faint);
+    font-size: .82rem;
+    line-height: 1.7;
+  }
+
   /* ===== 仕切り線 ===== */
   .divider { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
 
@@ -451,6 +460,7 @@
   <a class="btn-ghost" href="#why">🔄 なぜ移行するの？</a>
   <a class="btn-requester" href="#requester">📮 依頼する方はこちら</a>
   <a class="btn-team" href="#team">🔧 試作チームメンバーはこちら</a>
+  <a class="btn-ghost" href="#notifications">🔔 通知の設定</a>
   <a class="btn-ghost" href="#glossary">📖 用語集</a>
   <a class="btn-ghost" href="#help">💬 困ったときは</a>
 </nav>
@@ -490,9 +500,8 @@
       <tr><td>リスト（未着手・作業中・完了など）でカードを分けて管理</td><td>📊 スプシ：依頼一覧の「ステータス」列を選ぶだけ。行の色も自動で変わる</td></tr>
       <tr><td>ラベル（種別・至急など）で分類</td><td>📊 スプシ：「種別」列・「優先度」列で管理</td></tr>
       <tr><td>カードを別リストへ移動して完了管理</td><td>📊 スプシ：ステータスを「完了」にするだけ。あとで自動的に「完了アーカイブ」へ移動</td></tr>
-      <tr><td>月ごとのアーカイブリスト</td><td>📊 スプシ：「完了アーカイブ」シートに自動で蓄積</td></tr>
-      <tr><td>カードのコメントで経緯・申し送りを記録</td><td>📮フォーム：「その他共有」欄などに記載（詳しい記録方法は現在見直し中）</td></tr>
-      <tr><td>カードのコメントで行っていた個別のやりとり</td><td>💬 Google Chat：スレッドにて進捗相談、画像や追加の資料を共有</td></tr>
+      <tr><td>カードの「説明」で経緯・申し送りを記録</td><td>📮フォーム：「その他共有」欄などに記載</td></tr>
+      <tr><td>カードの「コメントとアクティビティ」で行っていた個別のやりとり</td><td>💬 Google Chat：スレッドにて進捗相談、画像や追加の資料を共有</td></tr>
     </table>
     <div class="tip">操作に迷ったときは、下の「依頼する方はこちら」「試作チームメンバーはこちら」から具体的な手順を確認してください。</div>
   </div>
@@ -566,19 +575,19 @@
     <div class="faq">
       <div class="faq-item">
         <div class="q">Q. 材料提供予定日が未定の場合は？</div>
-        <div class="a">空欄のまま送信してOKですが、決まり次第、Chatのスレッドで試作課に連絡してください（生産管理準備のものは特に）。</div>
+        <div class="a">空欄のまま送信してOKですが、決まり次第必ずChatの該当スレッドにて試作課担当者に連絡してください。また、生産管理準備のものは今まで通りWorkvivoでのメンションをお願いします。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 急ぎの依頼はどうすればいい？</div>
-        <div class="a">可能な限りフォームに入力をお願いしています。タスク管理のためご協力をお願い致します。</div>
+        <div class="a">必ずフォームに入力をお願いしています。タスク管理のためご協力をお願い致します。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 送信後に内容を変えたい場合は？</div>
-        <div class="a">フォームからは変更できません。ログを残すためにスレッドで連絡いただけると助かります。</div>
+        <div class="a">「依頼一覧」に「更新情報１〜５」を追加しました。ここに変更内容や追加の情報をご入力ください。入力するとスレッドに通知が来るようになっています。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 進捗を確認したいときは？</div>
-        <div class="a">「依頼一覧」シートを見れば確認できます。いちばん左の「ステータス」列（未着手・作業中・一時中断・完了）と、それに連動した行の色で、状況がひと目でわかります。<br><br>現在、スプレッドシートの編集は試作課のみとさせていただいています。ご自身の依頼だけを絞り込めるフィルタ表示もご用意できますので、ご希望の方は<a href="https://docs.google.com/spreadsheets/d/18DC4mKfCzyXE7o1e25fomSSC2dCNV7gf5Q9-LKZ_9VE/edit" target="_blank" rel="noopener">「ご意見・ご感想」シート</a>までお知らせください。</div>
+        <div class="a">「依頼一覧」シートでA列「ステータス」（未着手・作業中・一時中断・完了）を見れば確認できます。<br><br>シートが保護されていても、「フィルター表示」を作成してデータを絞り込むことが可能です。</div>
       </div>
     </div>
 
@@ -670,7 +679,7 @@
           <li><strong>薄い赤のマス</strong>＝材料提供予定日（1日分だけ表示）。実施スケジュールの緑と重なっていても消えずに残る</li>
           <li>上部メニュー「📅 ガントチャートを更新」を実行すると最新データに更新される</li>
         </ul>
-        <div class="tip brass">実施スケジュール（緑バー）を出したいときは、依頼一覧のL列「実施開始日」・M列「実施終了日」に日付を入れてください。入力するとガントチャートが自動で更新されます。材料提供予定日（薄い赤）はO列に日付を入れると自動で表示されます。</div>
+        <div class="tip brass">実施スケジュール（緑バー）を出したいときは、ガントチャート上の「試作開始日」「試作完了日」列に直接日付を入れてください（依頼一覧のL・M列に自動で書き戻され、入力するとその場でガントチャートが更新されます）。材料提供予定日（薄い赤）はO列に日付を入れると自動で表示されます。</div>
       </div>
     </div>
 
@@ -746,7 +755,39 @@
 
 
 <!-- ================================================================
-     セクション3：用語集
+     セクション3：通知の設定について
+     ================================================================ -->
+<section class="section" id="notifications">
+  <div class="section-title neutral">🔔 通知の設定について</div>
+  <div class="section-body">
+    <p class="lead">Google Chatの初期設定のままだと、更新情報などの通知に気づきにくいことがあります。次の設定に変更しておくと安心です。</p>
+
+    <div class="step">
+      <div class="step-badge neutral">1</div>
+      <div class="step-content">
+        <h3>Google Chatで「ランドセル試作依頼：通知」の▼をクリック</h3>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge neutral">2</div>
+      <div class="step-content">
+        <h3>「おしらせ」を開く</h3>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge neutral">3</div>
+      <div class="step-content">
+        <h3>「新しいスレッドとメンションのみ」ではなく「すべてのメッセージ」に変更する</h3>
+      </div>
+    </div>
+
+    <div class="tip">デフォルトは「新しいスレッドとメンションのみ通知」になっています。既存スレッドへの返信（更新情報の通知はこれに該当します）は通知されにくく、時間差で届いたり、そもそも気づきにくかったりします。</div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     セクション4：用語集
      ================================================================ -->
 <section class="section" id="glossary">
   <div class="section-title neutral">📖 用語集</div>
@@ -783,12 +824,13 @@
 
 
 <!-- ================================================================
-     セクション4：困ったときは
+     セクション5：困ったときは
      ================================================================ -->
 <section class="section" id="help">
   <div class="section-title neutral">💬 困ったときは</div>
   <div class="section-body">
-    <div class="tip brass lg">💬 使ってみた感想・気づいたこと・要望は、<a href="https://docs.google.com/spreadsheets/d/18DC4mKfCzyXE7o1e25fomSSC2dCNV7gf5Q9-LKZ_9VE/edit" target="_blank" rel="noopener">「ご意見・ご感想」シート</a>に自由に書き込んでください。他の人の書き込みも見られるので、同じことで困っている人がいないか確認にもなります。試作課で内容を確認し、同じシートの「試作課からの返信」欄に対応状況（すぐ対応できること／検討中のこと／今回は見送ること）を書いてお返しします。</div>
+    <div class="tip brass lg">💬 使ってみた感想・気づいたこと・要望は、<a href="https://docs.google.com/spreadsheets/d/18DC4mKfCzyXE7o1e25fomSSC2dCNV7gf5Q9-LKZ_9VE/edit" target="_blank" rel="noopener">「ご意見・ご感想」シート</a>に自由に書き込んでください。</div>
+    <p class="fine-print">※【試作スケジュール】は、まだ改善の途中にある仕組みです。皆さんが使いやすく、「今何をやっているか」がひと目でわかる状態を目指しておりますので、気づいたことがあればお気軽にお知らせください。ご協力の程よろしくお願いします。</p>
   </div>
 </section>
 
