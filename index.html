@@ -6,30 +6,37 @@
 <title>試作チーム タスク管理 使い方ガイド</title>
 <style>
   :root {
-    --bg: #F1EEE7;
+    --bg: #EDEDED;
     --surface: #FFFFFF;
-    --surface-soft: #FAF7F1;
-    --ink: #262220;
-    --ink-soft: #6B6259;
-    --ink-faint: #948A7D;
-    --line: #E1DACD;
-    --line-strong: #D2C8B6;
+    --surface-soft: #F5F5F5;
+    --ink: #3B3E35;
+    --ink-soft: #5C5C5C;
+    --ink-faint: #8C8C8C;
+    --line: #DEDEDE;
+    --line-strong: #C6C6C6;
 
-    --indigo: #33436B;
-    --indigo-ink: #2A374F;
-    --indigo-tint: #E8EBF2;
-    --indigo-tint-strong: #D4DAE8;
+    /* 依頼する方＝黒 */
+    --indigo: #3B3E35;
+    --indigo-ink: #2A2C25;
+    --indigo-tint: #EBEBEB;
+    --indigo-tint-strong: #DCDCDC;
 
-    --brass: #9C6B24;
-    --brass-ink: #7A551D;
-    --brass-tint: #F4EAD8;
-    --brass-tint-strong: #EADCBE;
+    /* 試作チーム＝グレー */
+    --brass: #6E6E6E;
+    --brass-ink: #3C3C3C;
+    --brass-tint: #EDEDED;
+    --brass-tint-strong: #DCDCDC;
 
-    --moss: #45624C;
-    --moss-tint: #E7EEE4;
+    --moss: #5F7320;
+    --moss-tint: #EFF6D9;
 
-    --brick: #A8452E;
-    --brick-tint: #F5E1DB;
+    --brick: #5C5C5C;
+    --brick-tint: #E6E6E6;
+
+    --lime: #C9E265;
+    --accent: #F16830;
+    --lime-ink: #4F6112;
+    --lime-tint: #EFF6D9;
 
     --shadow: 0 1px 2px rgba(38,34,32,.04), 0 8px 20px -12px rgba(38,34,32,.18);
 
@@ -39,30 +46,35 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #201D1A;
-      --surface: #2B2723;
-      --surface-soft: #322D28;
-      --ink: #EDE8E0;
-      --ink-soft: #B9B0A2;
-      --ink-faint: #8A8074;
-      --line: #423C34;
-      --line-strong: #524A40;
+      --bg: #1B1C19;
+      --surface: #1C1C1C;
+      --surface-soft: #242424;
+      --ink: #EDEDED;
+      --ink-soft: #ADADAD;
+      --ink-faint: #8A8A8A;
+      --line: #333333;
+      --line-strong: #4A4A4A;
 
-      --indigo: #8FA0C7;
-      --indigo-ink: #C4CEE4;
-      --indigo-tint: #303A4F;
-      --indigo-tint-strong: #3B4763;
+      --indigo: #3A3A3A;
+      --indigo-ink: #C9E265;
+      --indigo-tint: #2A2A2A;
+      --indigo-tint-strong: #343434;
 
-      --brass: #D6A85C;
-      --brass-ink: #E7C58A;
-      --brass-tint: #3D3323;
-      --brass-tint-strong: #4C3F29;
+      --brass: #7A7A7A;
+      --brass-ink: #C6C6C6;
+      --brass-tint: #262626;
+      --brass-tint-strong: #303030;
 
-      --moss: #8FAE93;
-      --moss-tint: #2C362B;
+      --moss: #C9E265;
+      --moss-tint: #2C3318;
 
-      --brick: #D68870;
-      --brick-tint: #402721;
+      --brick: #B0B0B0;
+      --brick-tint: #2A2A2A;
+
+      --lime: #C9E265;
+      --accent: #F16830;
+      --lime-ink: #D3E884;
+      --lime-tint: #39441F;
 
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 24px -14px rgba(0,0,0,.5);
     }
@@ -128,15 +140,22 @@
   }
 
   /* ===== イントロ／流れ図 ===== */
-  .intro {
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    padding: 28px 20px 32px;
+  /* 依頼〜スケジュール管理の流れ（枠なし・上下ゆったり） */
+  .flow-box {
+    margin: 28px 0 32px;
   }
-  .intro p {
+  .flow-box-title {
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--ink);
+  }
+  .flow-box .flow-lead { margin-top: 12px; }
+  .flow-box .flow { margin-top: 20px; }
+  .flow-lead {
     color: var(--ink-soft);
     font-size: .95rem;
     line-height: 1.85;
+    margin-top: 18px;
   }
   .flow {
     margin-top: 20px;
@@ -145,6 +164,13 @@
     flex-wrap: wrap;
     gap: 6px 4px;
   }
+  /* 縦並び（登場するツール） */
+  .flow-stack {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .flow-stack .flow-step { white-space: normal; }
   .flow-step {
     display: flex;
     align-items: center;
@@ -195,6 +221,8 @@
   .top-nav a.btn-team:hover { background: var(--brass); color: #fff; }
   .top-nav a.btn-ghost { background: transparent; color: var(--ink-soft); border-color: var(--line-strong); }
   .top-nav a.btn-ghost:hover { background: var(--surface-soft); color: var(--ink); }
+  .top-nav a.btn-common { background: var(--lime-tint); color: var(--lime-ink); border-color: var(--lime); }
+  .top-nav a.btn-common:hover { background: var(--lime); color: #3B3E35; }
 
   /* ===== セクション共通 ===== */
   .section { max-width: 760px; margin: 48px auto; padding: 0 20px; }
@@ -220,6 +248,11 @@
   .section-title.requester { background: var(--indigo); color: #fff; }
   .section-title.team { background: var(--brass); color: #fff; }
   .section-title.neutral { background: var(--surface-soft); color: var(--ink); border: 1px solid var(--line); border-bottom: none; }
+  /* 共通（依頼する方・試作チーム 両方に向けたセクション） */
+  .section-title.common { background: var(--lime); color: #3B3E35; }
+  .section-title.common .tag { background: var(--accent); color: #FFFFFF; }
+  .section-title.requester .tag { background: var(--accent); color: #FFFFFF; }
+  .section-title .tag { font-weight: 700; letter-spacing: .06em; }
 
   .section-body {
     background: var(--surface);
@@ -444,6 +477,46 @@
     .section-title { font-size: 1.12rem; padding: 15px 18px; }
     .section-body { padding: 22px 18px 28px; }
   }
+
+  /* ===== ミニマル調整（黒・グレー・ライム／syuz'gen参考） ===== */
+  .site-header,
+  .section-title,
+  .section-body,
+  .top-nav a,
+  .flow-step,
+  .tip,
+  .prefix-table,
+  .color-table,
+  .color-table td:first-child,
+  .glossary,
+  .section-title .tag { border-radius: 0; }
+  .section-body { box-shadow: none; }
+  .btn-cta {
+    box-shadow: none;
+    border-radius: 10px;
+    background: #4C5560;
+    color: #FFFFFF;
+  }
+  .btn-cta:hover { background: #3B434D; }
+
+  /* 見出しの色分け：依頼する方＝黒／試作チーム＝グレー／共通＝ライム */
+  .section-title.requester { background: #3B3E35; color: #FFFFFF; }
+  .section-title.team { background: #C6C6C6; color: #3B3E35; }
+  .section-title.team .tag { background: var(--accent); color: #FFFFFF; }
+  .section-title.common { background: var(--lime); color: #3B3E35; }
+  .section-title.common .tag { background: rgba(59,62,53,.14); }
+
+  /* 罫線を細く、面を白のまま保つ */
+  .flow-step { background: transparent; }
+  /* ヒント枠：淡いライム（#F1F6E8）で統一 */
+  .tip,
+  .tip.brass,
+  .tip.moss,
+  .tip.brick {
+    background: #F1F6E8;
+    border-left: 3px solid #4C5560;
+    color: #3B3E35;
+  }
 </style>
 </head>
 <body>
@@ -457,12 +530,12 @@
 </header>
 
 <nav class="top-nav">
-  <a class="btn-ghost" href="#why">🔄 なぜ移行するの？</a>
-  <a class="btn-requester" href="#requester">📮 依頼する方はこちら</a>
-  <a class="btn-team" href="#team">🔧 試作チームメンバーはこちら</a>
-  <a class="btn-ghost" href="#notifications">🔔 通知の設定</a>
-  <a class="btn-ghost" href="#glossary">📖 用語集</a>
-  <a class="btn-ghost" href="#help">💬 困ったときは</a>
+  <a class="btn-common" href="#why">なぜ移行するの？</a>
+  <a class="btn-requester" href="#requester">依頼する方はこちら</a>
+  <a class="btn-team" href="#team">試作チームメンバーはこちら</a>
+  <a class="btn-common" href="#notifications">通知の設定</a>
+  <a class="btn-common" href="#glossary">用語集</a>
+  <a class="btn-common" href="#help">困ったときは</a>
 </nav>
 
 
@@ -470,7 +543,7 @@
      セクション0：なぜこのシステムに移行するのか
      ================================================================ -->
 <section class="section" id="why">
-  <div class="section-title neutral">🔄 なぜGoogleスプレッドシートに移行するのか</div>
+  <div class="section-title common"><span class="tag">ALL</span>なぜGoogleスプレッドシートに移行するのか</div>
   <div class="section-body">
     <p class="lead">これまではTrelloで依頼・進捗を管理してきましたが、関係者が増えてTrelloの無料プランの人数上限に達したため、Google Workspace（スプレッドシート）へ移行します。</p>
 
@@ -486,7 +559,7 @@
     <hr class="divider">
 
     <h3 class="block-heading">登場するツール</h3>
-    <div class="flow" aria-label="登場するツール">
+    <div class="flow flow-stack" aria-label="登場するツール">
       <div class="flow-step">📮 依頼用のフォーム</div>
       <div class="flow-step">📊 依頼管理スプレッドシート（【試作スケジュール】：ランドセル）</div>
       <div class="flow-step">💬 Google Chat（通知・依頼ごとの個別共有）</div>
@@ -495,6 +568,21 @@
     <hr class="divider">
 
     <h3 class="block-heading">Trelloでできていたことは、こう変わります</h3>
+    <div class="flow-box">
+      <div class="flow-box-title">【依頼〜スケジュール管理の流れ】</div>
+      <p class="flow-lead">依頼はすべて1つのフォームから送られ、スプレッドシートとチャットに自動で並びます。試作チームはステータスを更新するだけで、誰が・何を・いつまでにやっているかが関係者全員が確認することができるようになります。</p>
+      <div class="flow" aria-label="全体の流れ">
+        <div class="flow-step">📮 依頼する</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">📋 自動で登録</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🔔 Chatに通知</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🔧 対応・更新</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">📚 記録に残す</div>
+      </div>
+    </div>
     <table class="prefix-table">
       <tr><th>Trelloでの管理</th><th>新システムでの対応</th></tr>
       <tr><td>リスト（未着手・作業中・完了など）でカードを分けて管理</td><td>📊 スプシ：依頼一覧の「ステータス」列を選ぶだけ。行の色も自動で変わる</td></tr>
@@ -507,22 +595,6 @@
   </div>
 </section>
 
-<div class="intro">
-  <div class="wrap">
-    <p>依頼はすべて1つのフォームから送られ、スプレッドシートに自動で並びます。試作チームはそこでステータスを更新するだけで、誰が・何を・いつまでにやっているかがチーム全員から見えるようになります。</p>
-    <div class="flow" aria-label="全体の流れ">
-      <div class="flow-step">📮 依頼する</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">📋 自動で登録</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🔔 Chatに通知</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🔧 対応・更新</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">📚 記録に残す</div>
-    </div>
-  </div>
-</div>
 
 
 <!-- ================================================================
@@ -589,7 +661,22 @@
         <div class="q">Q. 進捗を確認したいときは？</div>
         <div class="a">「依頼一覧」シートでA列「ステータス」（未着手・作業中・一時中断・完了）を見れば確認できます。<br><br>シートが保護されていても、「フィルター表示」を作成してデータを絞り込むことが可能です。</div>
       </div>
+      <div class="faq-item">
+        <div class="q">Q. 小さな依頼でも、すべてフォーム入力が必要ですか？</div>
+        <div class="a">はい。社内各部署から依頼をいただくため、すべてのタスクを見える化したいと思っています。フォームから送っていただくと「依頼一覧」に自動で登録され、Google Chatにも通知が届くため、依頼の抜け漏れを防げると考えています。<br>お手数ですがご協力をお願いします。</div>
+      </div>
     </div>
+
+    <hr class="divider">
+
+    <h3 class="block-heading">品質管理へ試験を依頼するときは</h3>
+    <p>試作したもの（検体など）を品質管理に依頼する場合、<strong>試験結果を試作課にも共有いただきたいです。</strong></p>
+    <p style="margin-top:12px;">共有方法として、次のような方法があります。</p>
+    <ul class="after-list">
+      <li><span class="mark">✓</span><span>品管に試験依頼をするときに、<strong>試作課の担当者をメンション</strong>していただく</span></li>
+      <li><span class="mark">✓</span><span>ガントチャートの<strong>「更新情報１〜」に追記</strong>していただく</span></li>
+    </ul>
+    <div class="tip lg">どの方法がやりやすいか、<b>相談させてください。</b></div>
 
   </div>
 </section>
@@ -703,10 +790,10 @@
 
     <h3 class="block-heading">行の色の意味</h3>
     <table class="color-table">
-      <tr><td style="background:var(--moss-tint);color:var(--moss);">薄緑の行</td><td>作業中</td></tr>
-      <tr><td style="background:var(--brass-tint);color:var(--brass-ink);">薄黄の行</td><td>一時中断</td></tr>
-      <tr><td style="background:var(--surface-soft);color:var(--ink-faint);">グレーの行</td><td>完了</td></tr>
-      <tr><td style="background:var(--brick-tint);color:var(--brick);">薄赤の行</td><td>至急（未完了）</td></tr>
+      <tr><td style="background:#E7EEE4;color:#3F5A45;">薄緑の行</td><td>作業中</td></tr>
+      <tr><td style="background:#FBF2D4;color:#7A5A17;">薄黄の行</td><td>一時中断</td></tr>
+      <tr><td style="background:#EFEFEF;color:#7A7A7A;">グレーの行</td><td>完了</td></tr>
+      <tr><td style="background:#F7DFD9;color:#9C4130;">薄赤の行</td><td>至急（未完了）</td></tr>
     </table>
 
     <hr class="divider">
@@ -776,7 +863,7 @@
      セクション3：通知の設定について
      ================================================================ -->
 <section class="section" id="notifications">
-  <div class="section-title neutral">🔔 通知の設定について</div>
+  <div class="section-title common"><span class="tag">ALL</span>通知の設定について</div>
   <div class="section-body">
     <p class="lead">Google Chatの初期設定のままだと、更新情報などの通知に気づきにくいことがあります。次の設定に変更しておくと安心です。</p>
 
@@ -808,7 +895,7 @@
      セクション4：用語集
      ================================================================ -->
 <section class="section" id="glossary">
-  <div class="section-title neutral">📖 用語集</div>
+  <div class="section-title common"><span class="tag">ALL</span>用語集</div>
   <div class="section-body">
     <p class="lead">ガイドの中で出てくる言葉を、かんたんに説明しています。わからない言葉が出てきたら開いてみてください。</p>
     <div class="glossary">
@@ -845,7 +932,7 @@
      セクション5：困ったときは
      ================================================================ -->
 <section class="section" id="help">
-  <div class="section-title neutral">💬 困ったときは</div>
+  <div class="section-title common"><span class="tag">ALL</span>困ったときは</div>
   <div class="section-body">
     <div class="tip brass lg">💬 使ってみた感想・気づいたこと・要望は、<a href="https://docs.google.com/spreadsheets/d/18DC4mKfCzyXE7o1e25fomSSC2dCNV7gf5Q9-LKZ_9VE/edit" target="_blank" rel="noopener">「ご意見・ご感想」シート</a>に自由に書き込んでください。</div>
     <p class="fine-print">※【試作スケジュール】は、まだ改善の途中にある仕組みです。皆さんが使いやすく、「今何をやっているか」がひと目でわかる状態を目指しておりますので、気づいたことがあればお気軽にお知らせください。ご協力の程よろしくお願いします。</p>
