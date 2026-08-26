@@ -529,6 +529,20 @@
   .section-title.common { background: var(--lime); color: #3B3E35; }
   .section-title.common .tag { background: rgba(59,62,53,.14); }
 
+  /* 見出しに付ける小さなラベル（お願い など） */
+  .pill {
+    display: inline-block;
+    background: var(--accent);
+    color: #FFFFFF;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    line-height: 1;
+    padding: 5px 8px 4px;
+    margin-right: 10px;
+    vertical-align: 2px;
+  }
+
   /* 罫線を細く、面を白のまま保つ */
   .flow-step { background: transparent; }
   /* ヒント枠：淡いライム（#F1F6E8）で統一 */
@@ -690,20 +704,22 @@
       </div>
       <div class="faq-item">
         <div class="q">Q. チャットが埋もれてしまうときはどうすればいいですか？</div>
-        <div class="a">Google Chatの検索欄に「依頼番号」（例：SAM-001）を入力すると、その依頼のスレッドに飛ぶことができます。依頼番号は「依頼一覧」シートのB列に入っています。</div>
+        <div class="a">探し方は2つあります。<br>
+        ・「依頼一覧」シートのB列にある「依頼番号」（例：SAM-001）を、Google Chatの検索欄に入力してさがす<br>
+        ・「依頼一覧」シートのU列「ChatスレッドURL」から、その依頼のスレッドに直接飛ぶ</div>
       </div>
     </div>
 
     <hr class="divider">
 
-    <h3 class="block-heading">品質管理へ試験を依頼するときは</h3>
+    <h3 class="block-heading"><span class="pill">お願い</span>品質管理へ試験を依頼するときは</h3>
     <p>試作したもの（検体など）を品質管理に依頼する場合、<strong>試験結果を試作課にも共有いただきたいです。</strong></p>
     <p style="margin-top:12px;">共有方法として、次のような方法があります。</p>
     <ul class="after-list">
-      <li><span class="mark">✓</span><span>品管に試験依頼をするときに、<strong>試作課の担当者をメンション</strong>していただく</span></li>
+      <li><span class="mark">✓</span><span>品管に試験依頼をするときに、<strong>試作課の担当者をメンション</strong>していただく<br>
+        <a class="btn-cta" href="https://harizury.workvivo.com/spaces/225445/feed" target="_blank" rel="noopener" style="margin-top:8px;">【TBJ】品質管理へのご相談・ご依頼</a></span></li>
       <li><span class="mark">✓</span><span>ガントチャートの<strong>「更新情報１〜」に追記</strong>していただく</span></li>
     </ul>
-    <div class="tip lg">どの方法がやりやすいか、<b>相談させてください。</b></div>
 
   </div>
 </section>
