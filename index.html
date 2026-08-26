@@ -4,14 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>試作チーム タスク管理 使い方ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #EDEDED;
     --surface: #FFFFFF;
     --surface-soft: #F5F5F5;
     --ink: #3B3E35;
-    --ink-soft: #5C5C5C;
-    --ink-faint: #8C8C8C;
+    --ink-soft: #4A4D44;
+    --ink-faint: #6B6E64;
     --line: #DEDEDE;
     --line-strong: #C6C6C6;
 
@@ -40,7 +43,7 @@
 
     --shadow: 0 1px 2px rgba(38,34,32,.04), 0 8px 20px -12px rgba(38,34,32,.18);
 
-    --font-jp: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+    --font-jp: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
     --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, 'Menlo', monospace;
   }
 
@@ -253,6 +256,14 @@
   .section-title.common .tag { background: var(--accent); color: #FFFFFF; }
   .section-title.requester .tag { background: var(--accent); color: #FFFFFF; }
   .section-title .tag { font-weight: 700; letter-spacing: .06em; }
+  /* FOR / ALL バッジと見出し文字の高さをそろえる */
+  .section-title { align-items: center; }
+  .section-title .tag {
+    line-height: 1;
+    padding: 5px 7px 4px;
+    position: relative;
+    top: 1px;
+  }
 
   .section-body {
     background: var(--surface);
@@ -499,6 +510,18 @@
   }
   .btn-cta:hover { background: #3B434D; }
 
+  /* 説明文を読みやすく（濃さ・行間） */
+  .lead,
+  .flow-lead,
+  .section-body > p,
+  .after-list li,
+  .cta-row p {
+    color: var(--ink);
+    font-size: .97rem;
+    line-height: 1.95;
+  }
+  .faq-item .a { line-height: 1.9; }
+
   /* 見出しの色分け：依頼する方＝黒／試作チーム＝グレー／共通＝ライム */
   .section-title.requester { background: #3B3E35; color: #FFFFFF; }
   .section-title.team { background: #C6C6C6; color: #3B3E35; }
@@ -560,9 +583,9 @@
 
     <h3 class="block-heading">登場するツール</h3>
     <div class="flow flow-stack" aria-label="登場するツール">
-      <div class="flow-step">📮 依頼用のフォーム</div>
-      <div class="flow-step">📊 依頼管理スプレッドシート（【試作スケジュール】：ランドセル）</div>
-      <div class="flow-step">💬 Google Chat（通知・依頼ごとの個別共有）</div>
+      <div class="flow-step">📮 依頼用のフォーム「ランドセル試作依頼： フォーム」</div>
+      <div class="flow-step">📊 依頼管理スプレッドシート「【試作スケジュール】：ランドセル」</div>
+      <div class="flow-step">💬 Google Chat（通知・依頼ごとの個別共有）「ランドセル試作依頼:通知」</div>
     </div>
 
     <hr class="divider">
@@ -570,7 +593,7 @@
     <h3 class="block-heading">Trelloでできていたことは、こう変わります</h3>
     <div class="flow-box">
       <div class="flow-box-title">【依頼〜スケジュール管理の流れ】</div>
-      <p class="flow-lead">依頼はすべて1つのフォームから送られ、スプレッドシートとチャットに自動で並びます。試作チームはステータスを更新するだけで、誰が・何を・いつまでにやっているかが関係者全員が確認することができるようになります。</p>
+      <p class="flow-lead">依頼はすべて1つのフォームから送られ、スプレッドシートとチャットに自動で並びます。<br>試作チームはステータスを更新するだけで、誰が・何を・いつまでにやっているか全員が確認することができるようになります。</p>
       <div class="flow" aria-label="全体の流れ">
         <div class="flow-step">📮 依頼する</div>
         <span class="flow-arrow">→</span>
@@ -664,6 +687,10 @@
       <div class="faq-item">
         <div class="q">Q. 小さな依頼でも、すべてフォーム入力が必要ですか？</div>
         <div class="a">はい。社内各部署から依頼をいただくため、すべてのタスクを見える化したいと思っています。フォームから送っていただくと「依頼一覧」に自動で登録され、Google Chatにも通知が届くため、依頼の抜け漏れを防げると考えています。<br>お手数ですがご協力をお願いします。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">Q. チャットが埋もれてしまうときはどうすればいいですか？</div>
+        <div class="a">Google Chatの検索欄に「依頼番号」（例：SAM-001）を入力すると、その依頼のスレッドに飛ぶことができます。依頼番号は「依頼一覧」シートのB列に入っています。</div>
       </div>
     </div>
 
@@ -799,7 +826,7 @@
     <hr class="divider">
 
     <h3 class="block-heading">依頼番号のルール</h3>
-    <p style="color:var(--ink-soft);font-size:.92rem;margin-bottom:6px;">依頼項目を選ぶと依頼番号は自動で入力されます。手入力は不要です。「種別」は依頼項目から自動判定される分類（ダッシュボード集計用）で、依頼番号の頭文字には使いません。</p>
+    <p style="font-size:.94rem;margin-bottom:6px;">依頼項目を選ぶと依頼番号は自動で入力されます。手入力は不要です。「種別」は依頼項目から自動判定される分類（ダッシュボード集計用）で、依頼番号の頭文字には使いません。</p>
     <table class="prefix-table">
       <tr><th>依頼項目</th><th>種別</th><th>番号の頭文字</th><th>例</th></tr>
       <tr><td>試作</td><td>試作依頼</td><td class="code">SAM</td><td class="code">SAM-001</td></tr>
