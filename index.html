@@ -145,7 +145,7 @@
   /* ===== イントロ／流れ図 ===== */
   /* 依頼〜スケジュール管理の流れ（枠なし・上下ゆったり） */
   .flow-box {
-    margin: 28px 0 32px;
+    margin: 28px 0 44px;
   }
   .flow-box-title {
     font-weight: 700;
@@ -254,7 +254,7 @@
   /* 共通（依頼する方・試作チーム 両方に向けたセクション） */
   .section-title.common { background: var(--lime); color: #3B3E35; }
   .section-title.common .tag { background: var(--accent); color: #FFFFFF; }
-  .section-title.requester .tag { background: var(--accent); color: #FFFFFF; }
+  .section-title.requester .tag { background: var(--lime); color: #3B3E35; }
   .section-title .tag { font-weight: 700; letter-spacing: .06em; }
   /* FOR / ALL バッジと見出し文字の高さをそろえる */
   .section-title { align-items: center; }
@@ -355,8 +355,8 @@
     background: var(--indigo-tint);
     border-left: 3px solid var(--indigo);
     border-radius: 0 8px 8px 0;
-    padding: 11px 14px;
-    margin: 10px 0 0;
+    padding: 12px 15px;
+    margin: 18px 0 0;
     font-size: .88rem;
     color: var(--ink);
   }
@@ -390,20 +390,22 @@
   }
 
   /* ===== 色サンプル表 ===== */
-  .color-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: .9rem; }
+  .color-table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: .9rem; }
   .color-table td { padding: 9px 14px; border: 1px solid var(--line); }
   .color-table td:first-child { width: 130px; border-radius: 6px; font-weight: 700; }
 
   /* ===== FAQ ===== */
   .faq { margin-top: 6px; }
   .faq-item { padding: 12px 0; border-top: 1px solid var(--line); }
-  .faq-item:first-child { border-top: none; padding-top: 0; }
+  /* 「よくある質問」の見出しの下にも区切り線を引く（1問目の上） */
+  .faq-item:first-child { border-top: 1px solid var(--line); padding-top: 12px; }
+  .faq { border-top: none; }
   .faq-item .q { font-weight: 700; color: var(--indigo-ink); margin-bottom: 4px; }
   .section-body .faq-item .q.brass { color: var(--brass-ink); }
   .faq-item .a { padding-left: 4px; color: var(--ink-soft); }
 
   /* ===== 依頼番号ルール表 ===== */
-  .prefix-table { width: 100%; border-collapse: collapse; font-size: .88rem; margin-top: 10px; }
+  .prefix-table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 16px 0 8px; }
   .prefix-table th {
     background: var(--surface-soft);
     color: var(--ink-soft);
@@ -525,7 +527,7 @@
   /* 見出しの色分け：依頼する方＝黒／試作チーム＝グレー／共通＝ライム */
   .section-title.requester { background: #3B3E35; color: #FFFFFF; }
   .section-title.team { background: #C6C6C6; color: #3B3E35; }
-  .section-title.team .tag { background: var(--accent); color: #FFFFFF; }
+  .section-title.team .tag { background: var(--lime); color: #3B3E35; }
   .section-title.common { background: var(--lime); color: #3B3E35; }
   .section-title.common .tag { background: rgba(59,62,53,.14); }
 
@@ -554,6 +556,46 @@
     margin-right: 10px;
     vertical-align: 2px;
   }
+
+  /* 8/27に追加・変更した箇所の目印（8/26の説明会で決まった内容） */
+  .pill.new {
+    background: transparent;
+    color: #F16830;
+    border: 1px solid #F16830;
+    letter-spacing: .02em;
+  }
+
+  /* 8/27に追加・変更したブロックを囲む枠
+     （白地にオレンジの線・角丸10px。塗りつぶさず枠だけにして、新しい情報の目印にする） */
+  .newbox,
+  .newsec {
+    background: #FFFFFF;
+    border: 3px solid #F16830;
+    border-radius: 10px;
+    padding: 0.9em 1.2em 1.1em;
+    margin: 2em 0;
+    color: #3B3E35;
+  }
+  .newbox { margin-top: 0; }
+  .newbox h4 {
+    font-size: .95rem;
+    font-weight: 800;
+    color: #F16830;
+    margin: 0 0 8px;
+  }
+  .newbox ul { margin: 0; padding-left: 1.2em; }
+  .newbox li { margin: 5px 0; font-size: .92rem; line-height: 1.8; }
+  .newbox a { color: #3B3E35; text-decoration: underline; text-underline-offset: 3px; }
+  .newbox a:hover { color: #F16830; }
+  .newsec > h3.block-heading { margin-top: 0; color: #F16830; }
+  .newsec > p { margin-bottom: 10px; }
+  .newsec > *:last-child { margin-bottom: 0; }
+  /* 手順の中にある「8/27に追加」のひとこと */
+  .tip.new { background: #FFFFFF; border-left-color: #F16830; }
+  /* 8/27に追記した補足を本文中で示す */
+  .new-note { color: #F16830; font-weight: 700; }
+  .section-body .faq-item .q.new { color: #F16830; }
+  .pill.lime { background: var(--lime); color: #3B3E35; }
 
   /* 罫線を細く、面を白のまま保つ */
   .flow-step { background: transparent; }
@@ -638,13 +680,15 @@
       <tr><td>ラベル（種別・至急など）で分類</td><td>📊 スプシ：「種別」列・「優先度」列で管理</td></tr>
       <tr><td>カードを別リストへ移動して完了管理</td><td>📊 スプシ：ステータスを「完了」にするだけ。あとで自動的に「完了アーカイブ」へ移動</td></tr>
       <tr><td>カードの「説明」で経緯・申し送りを記録</td><td>📮フォーム：「その他共有」欄などに記載</td></tr>
+      <tr><td>カードに写真・図面を添付</td><td>💬 Google Chat：その依頼のスレッドに画像を添付<br>📮フォーム：資料はドライブに置き、「参考資料URL」欄にリンクを記載</td></tr>
+      <tr><td>カードの「チェックリスト」で工程を分けて管理</td><td>📊 スプシ：1つの依頼＝1行で運用（工程ごとに分ける方法は今後の検討事項）</td></tr>
       <tr><td>カードの「コメントとアクティビティ」で行っていた個別のやりとり</td><td>💬 Google Chat：スレッドにて進捗相談、画像や追加の資料を共有<br><span style="font-size:.86rem;color:var(--ink-soft);">※スレッドは「糸巻きのマーク」から開きます（下記）</span></td></tr>
     </table>
     <div class="tip"><b>スレッドの開き方</b>：Google Chatで通知メッセージの上にカーソルを合わせると、右上に小さなアイコンが並びます。
       <img class="icon-shot" src="data:image/png;base64,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" alt="Google Chatでメッセージにカーソルを合わせたときに出るアイコン。左から2番目が「スレッドで返信」">
       左から2番目の<b>糸巻きのようなマーク（「スレッドで返信」）</b>を押すと、その依頼専用のスレッドが右側に開きます。<br>
       その隣の「↩」は<b>引用して返信</b>で、スレッドにはならず下に流れてしまうのでご注意ください。</div>
-    <div class="tip">操作に迷ったときは、下の「依頼する方はこちら」「試作チームメンバーはこちら」から具体的な手順を確認してください。</div>
+    <div class="tip">操作に迷ったときは、上のボタン「依頼する方はこちら」「試作チームメンバーはこちら」から具体的な手順を確認してください。</div>
   </div>
 </section>
 
@@ -696,11 +740,23 @@
 
     <hr class="divider">
 
+    <div class="newsec">
+    <h3 class="block-heading" id="chat-vs-update"><span class="pill">重要</span><span class="pill new">8/27 追加</span>Chat＝相談・会話／「更新情報」＝確定事項</h3>
+    <p>依頼を送信したあとのやりとりは、次の2つを使い分けます。</p>
+    <table class="prefix-table">
+      <tr><th>使う場所</th><th>書くこと</th></tr>
+      <tr><td>💬 Google Chatのスレッド</td><td><strong>相談・会話</strong>。「この仕様で作れますか？」「写真を送ります」など、まだ決まっていない段階のやりとり</td></tr>
+      <tr><td>📝 依頼一覧の「更新情報1〜10」</td><td><strong>確定したこと</strong>。Chatや口頭で決まった仕様変更・追加を、<strong>依頼者が</strong>記入する</td></tr>
+    </table>
+    </div>
+
+    <hr class="divider">
+
     <h3 class="block-heading">よくある質問</h3>
     <div class="faq">
       <div class="faq-item">
-        <div class="q">Q. 材料提供予定日が未定の場合は？</div>
-        <div class="a">空欄のまま送信してOKですが、決まり次第必ずChatの該当スレッドにて試作課担当者に連絡してください。また、生産管理準備のものは今まで通りWorkvivoでのメンションをお願いします。</div>
+        <div class="q">Q. 材料提供予定日や全体スケジュールURLが未定の場合は？</div>
+        <div class="a">空欄・暫定のままで送信してOKです。未確定の項目が多くても、<strong>時期と数量が見えていれば先に送ってください。</strong><br><br><strong>確定したら、Chatの該当スレッドか「更新情報」欄に必ずご記入ください。</strong>（更新情報に書いていただくと試作課に通知が届き、あとから見返せる記録としても残ります）<br><br>※全体スケジュールのURLは、試作課が開けるよう<strong>閲覧権限を付けて</strong>共有してください。試作から製造への引き継ぎ時期を把握するために使います。<br>※生産管理準備のものは、今まで通りWorkvivoでのメンションをお願いします。<br><a class="btn-cta" href="https://harizury.workvivo.com/spaces/225475/feed" target="_blank" rel="noopener" style="margin-top:8px;">【TBJ】SCM本部へのご相談、ご依頼</a></div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 急ぎの依頼はどうすればいい？</div>
@@ -708,7 +764,7 @@
       </div>
       <div class="faq-item">
         <div class="q">Q. 送信後に内容を変えたい場合は？</div>
-        <div class="a">「依頼一覧」に「更新情報１〜５」を追加しました。ここに変更内容や追加の情報をご入力ください。入力するとスレッドに通知が来るようになっています。</div>
+        <div class="a">「依頼一覧」の<strong>「更新情報1〜10」</strong>欄に、変更内容や追加の情報をご入力ください。空いている左の枠から順に書いていただければ、Chatの該当スレッドに通知が届きます。<br>先頭の日付は自動で付くので、内容だけ書けばOKです。</div>
       </div>
       <div class="faq-item">
         <div class="q">Q. 進捗を確認したいときは？</div>
@@ -716,7 +772,7 @@
       </div>
       <div class="faq-item">
         <div class="q">Q. 小さな依頼でも、すべてフォーム入力が必要ですか？</div>
-        <div class="a">はい。社内各部署から依頼をいただくため、すべてのタスクを見える化したいと思っています。フォームから送っていただくと「依頼一覧」に自動で登録され、Google Chatにも通知が届くため、依頼の抜け漏れを防げると考えています。<br>お手数ですがご協力をお願いします。</div>
+        <div class="a">はい。社内各部署から依頼をいただくため、すべてのタスクを見える化したいと思っています。フォームから送っていただくと「依頼一覧」に自動で登録され、Google Chatにも通知が届くため、依頼の抜け漏れを防げると考えています。<br>お手数ですがご協力をお願いします。<br><span class="new-note">※チャットでの依頼・完了報告（「フォーム投げました」等）は不要になりました。</span></div>
       </div>
       <div class="faq-item">
         <div class="q">Q. チャットが埋もれてしまうときはどうすればいいですか？</div>
@@ -726,21 +782,43 @@
       </div>
       <div class="faq-item">
         <div class="q">Q. 依頼が中止になったときは？</div>
-        <div class="a">Chatのスレッド、または「更新情報1〜5」欄で試作課にお知らせください。試作課がステータスを「中止」に変更すると、Chatに通知が届きます。<br>中止になった依頼は、「完了アーカイブ」シートに記録として残ります。</div>
+        <div class="a">Chatのスレッド、または「更新情報1〜10」欄で試作課にお知らせください。試作課がステータスを「中止」に変更すると、Chatに通知が届きます。<br>中止になった依頼は、「完了アーカイブ」シートに記録として残ります。</div>
+      </div>
+      <div class="faq-item" id="update-how">
+        <div class="q new">Q.「更新情報」はどう書けばいいですか？</div>
+        <div class="a">空いている左の枠から順にご記入ください（更新情報1 → 2 → 3…と、右へ行くほど新しい情報になります）。<br><br>
+        ・<strong>日付は自動で付きます。</strong>「素材をAからBに変更」と書けば「8/27 素材をAからBに変更」になります。手で日付を入れる必要はありません<br>
+        ・入力すると、<strong>その依頼のChatスレッドに通知が届きます</strong>（試作課へのお知らせは、これだけで完了します）<br><br>
+        <span class="new-note">※「更新情報」欄は、1セルずつの入力でのみ動作します。複数のセルをまとめてコピー＆ペーストすると、日付の自動付与とChat通知が反応しない仕様になっています🙏　お手数ですが、1つずつご入力ください。</span></div>
+      </div>
+      <div class="faq-item">
+        <div class="q new">Q. 正式依頼の前の相談は？</div>
+        <div class="a">フォーム不要です。デザイン相談・作れるかどうかの事前検討は、これまで通り口頭・チャット・MTGでどうぞ。実際に試作・作業をお願いする段階でフォームを送ってください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q new">Q. 予約的な依頼は？</div>
+        <div class="a">色数・金具の色・SKUが未定でも、時期と数量が見えた時点で送ってください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q new">Q. 希望納期はどう書けばいいですか？</div>
+        <div class="a">「なる早」ではなく「ここまでには必要」という実際の期限を入れてください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q new">Q. ブランドが複数にまたがる／当てはまらないときは？</div>
+        <div class="a">フォームの「ブランド」欄で<strong>「その他」</strong>を選び、詳細は<strong>「その他共有」欄</strong>に書いてください。<br>（例：土屋鞄とgriroseの両方で使う金具の試作、ブランド未定の先行検討 など）</div>
+      </div>
+      <div class="faq-item">
+        <div class="q new">Q. これまでのTrelloはどうなりますか？</div>
+        <div class="a">今後の依頼は、この新しい依頼システムに移行します。<br>Trelloのボードは、過去の記録を見返すために当面そのまま残します。<br>※Trelloの内容を移すかどうかは、今後検討します。</div>
       </div>
     </div>
 
     <hr class="divider">
 
-    <h3 class="block-heading"><span class="pill">お願い</span>品質管理へ試験を依頼するときは</h3>
+    <h3 class="block-heading" id="qc-request"><span class="pill lime">お願い</span>品質管理へ試験を依頼するときは</h3>
     <p>試作したもの（検体など）を品質管理に依頼する場合、<strong>試験結果を試作課にも共有いただきたいです。</strong></p>
-    <p style="margin-top:12px;">共有方法として、次のような方法があります。</p>
-    <ul class="after-list">
-      <li><span class="mark">✓</span><span>品管に試験依頼をするときに、<strong>試作課の担当者をメンション</strong>していただく<br>
-        <a class="btn-cta" href="https://harizury.workvivo.com/spaces/225445/feed" target="_blank" rel="noopener" style="margin-top:8px;">【TBJ】品質管理へのご相談・ご依頼</a></span></li>
-      <li><span class="mark">✓</span><span>ガントチャートの<strong>「更新情報１〜」に追記</strong>していただく</span></li>
-    </ul>
-
+    <p style="margin-top:12px;">品質管理のフォーマットの<strong>「報告希望者」欄に、試作課の担当者を記載</strong>してください。<br>（試験の途中経過の共有は不要です）</p>
+    <a class="btn-cta" href="https://harizury.workvivo.com/spaces/225445/feed" target="_blank" rel="noopener" style="margin-top:8px;">【TBJ】品質管理へのご相談・ご依頼</a>
   </div>
 </section>
 
@@ -760,7 +838,7 @@
         <h3>Google Chatで新着依頼を確認する</h3>
         <ul>
           <li>フォームが送信されるとChatに自動通知が届く</li>
-          <li>通知内容：ステータス・ブランド・依頼内容・依頼番号・年度・希望納期・部署名・氏名</li>
+          <li>通知内容：ステータス・ブランド・依頼内容・依頼番号・販売年度・希望納期・部署名・氏名</li>
           <li>通知のリンクからスプレッドシートを開ける</li>
         </ul>
         <div class="tip brass">希望納期の3日前にもChat通知が自動で届きます。</div>
@@ -771,11 +849,12 @@
     <div class="step">
       <div class="step-badge brass">2</div>
       <div class="step-content">
-        <h3>依頼一覧で優先度・氏名を確認する</h3>
+        <h3>依頼一覧で優先度・依頼者を確認する</h3>
         <ul>
           <li>スプレッドシートの「依頼一覧」シートを開く</li>
           <li>新着依頼（依頼番号が自動入力済み）を確認する</li>
-          <li>P列「優先度」をドロップダウンで確認・修正する（至急・高・中・低）</li>
+          <li>R列「優先度」をドロップダウンで確認・修正する（至急・高・中・低）</li>
+          <li>H列「氏名」＝<strong>依頼してきた方</strong>、V列「担当者」＝<strong>試作課の担当者</strong>です（担当者の入力・確認はガントチャート側で行うため、V列はふだん非表示にしてあります）</li>
         </ul>
         <div class="tip brass">優先度は希望納期の営業日数から自動設定されます（5営業日以内→至急／10営業日以内→高）。必要に応じて修正してください。</div>
       </div>
@@ -786,10 +865,12 @@
       <div class="step-content">
         <h3>自分の担当を絞り込む</h3>
         <ul>
-          <li>メニュー「表示」→「フィルタ表示」→「新しいフィルタ表示を作成」</li>
-          <li>氏名列で自分の名前だけにチェックを入れる</li>
+          <li>いちばん手軽なのは<strong>「ガントチャート」シートの「担当者」列</strong>を見る方法です（自分の名前が入っている行が自分の担当です）</li>
+          <li>「依頼一覧」で絞り込みたいときは、メニュー「表示」→「フィルタ表示」→「新しいフィルタ表示を作成」</li>
+          <li><strong>V列「担当者」</strong>で自分の名前だけにチェックを入れる（依頼元で絞りたいときはH列「氏名」）</li>
           <li>自分だけの絞り込み画面になる（他の人の画面には影響しない）</li>
         </ul>
+        <div class="tip brass">V列「担当者」はふだん非表示にしてあります。絞り込みに使いたいときは、U列とW列の境目を右クリック →「列を再表示」で一時的に表示できます。</div>
         <div class="tip brass">保存した「フィルタ表示」は次回から「表示」→「フィルタ表示」から1クリックで呼び出せます。ヘッダー行の▼（フィルタ）ボタンは全員の画面が変わってしまうため、複数人で使うシートでは使わないでください。</div>
       </div>
     </div>
@@ -820,27 +901,31 @@
     <div class="step">
       <div class="step-badge brass">6</div>
       <div class="step-content">
-        <h3>ガントチャートで全体スケジュールを確認する</h3>
+        <h3 id="team-gantt">ガントチャートで全体スケジュールを確認する<span class="pill new" style="margin-left:10px;margin-right:0;">8/27 追加</span></h3>
         <ul>
           <li>「ガントチャート」シートを開く</li>
           <li>優先度順に未完了タスクが一覧表示される</li>
+          <li>左側の固定列に<strong>「担当者」「試作開始日」「試作完了日」</strong>（緑の見出し）が並んでいる。ここは<strong>直接入力できます</strong></li>
           <li><strong>薄い黄色のバー</strong>＝依頼元の希望スケジュール（依頼日〜希望納期）</li>
           <li><strong>緑色のバー</strong>＝試作課が決めた実施スケジュール（実施開始日〜実施終了日）。黄色バーの上に重なって表示される</li>
           <li><strong>薄い赤のマス</strong>＝材料提供予定日（1日分だけ表示）。実施スケジュールの緑と重なっていても消えずに残る</li>
           <li>上部メニュー「📅 ガントチャートを更新」を実行すると最新データに更新される</li>
         </ul>
         <div class="tip brass">実施スケジュール（緑バー）を出したいときは、ガントチャート上の「試作開始日」「試作完了日」列に直接日付を入れてください（依頼一覧のL・M列に自動で書き戻され、入力するとその場でガントチャートが更新されます）。材料提供予定日（薄い赤）はO列に日付を入れると自動で表示されます。</div>
+        <div class="tip new"><strong>担当者もここで決められます。</strong>「担当者」列に名前を入れると、依頼一覧のV列に自動で書き戻されます。スケジュールを引きながら担当者も一緒に決められるように、この3列を並べています。</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-badge brass">7</div>
       <div class="step-content">
-        <h3>週次メンテナンス（週1回・金曜など）</h3>
+        <h3 id="team-maintenance">定期メンテナンス（月1回）<span class="pill new" style="margin-left:10px;margin-right:0;">8/27 変更</span></h3>
         <ul>
           <li>上部メニュー「📦 完了・中止の依頼をアーカイブに移動」を実行する</li>
           <li>ステータスが「完了」「中止」の行が「完了アーカイブ」シートに移動し、依頼一覧がスッキリする</li>
-          <li>ダッシュボードで来週の状況を確認する</li>
+          <li>「ダッシュボード」シートで全体の状況を確認する</li>
+          <li>上部の<strong>「いま抱えている依頼 ○件」</strong>で総量を見る</li>
+          <li><strong>🔴「納期を過ぎている依頼」</strong>欄を確認する（ここが空なら遅れなし。超過日数の大きい順に並びます）</li>
           <li>「3日以内に納期が来る依頼」欄・「至急・高」の件数をチェックする</li>
         </ul>
         <div class="tip brass">アーカイブに移動したデータは「完了アーカイブ」シートに残ります。消えるわけではありません。</div>
@@ -889,13 +974,13 @@
     <table class="prefix-table">
       <tr><th>メニュー</th><th>何をするボタンか</th><th>使うとき</th></tr>
       <tr><td>📅 ガントチャートを更新</td><td>依頼一覧の内容を読み直して、ガントチャートを最新にする</td><td>表示がずれている気がするとき（いつ押してもOK）</td></tr>
-      <tr><td>📦 完了・中止の依頼をアーカイブに移動</td><td>ステータスが「完了」「中止」の行を「完了アーカイブ」シートへ移す</td><td>週1回（金曜など）</td></tr>
+      <tr><td>📦 完了・中止の依頼をアーカイブに移動</td><td>ステータスが「完了」「中止」の行を「完了アーカイブ」シートへ移す</td><td>月1回</td></tr>
       <tr><td>⚙️ Chat Webhook URLを設定</td><td>通知を送るGoogle Chatスペースを登録し直す</td><td>通知先のスペースを変えるとき</td></tr>
       <tr><td>🧪 Chat通知テスト送信</td><td>サンプルの通知を1件送って、Chatに届くか確かめる</td><td>通知が届かないとき</td></tr>
-      <tr><td>🔒 依頼一覧シートをロック<br>🔓 ロックを解除</td><td>依頼一覧を試作課だけが編集できる状態にする（更新情報1〜5の列は、他部署の方も入力できるままです）</td><td>編集できる人を決める・変えるとき</td></tr>
+      <tr><td>🔒 依頼一覧シートをロック<br>🔓 ロックを解除</td><td>依頼一覧を試作課だけが編集できる状態にする（更新情報1〜10の列は、他部署の方も入力できるままです）</td><td>編集できる人を決める・変えるとき</td></tr>
       <tr><td>🔒 ガントチャートをロック<br>🔓 ロックを解除</td><td>ガントチャートを同じ方たちだけが編集できる状態にする</td><td>同上</td></tr>
       <tr><td>🔁 自動化トリガーを再登録</td><td>自動処理（依頼番号の採番・Chat通知・フォームからの自動登録・毎朝の納期アラート）を、押した人の権限で動かし直す</td><td>通知やフォーム登録が急に止まったとき／担当を引き継ぐとき</td></tr>
-      <tr><td>🔧 依頼一覧の入力規則を修正</td><td>ドロップダウン（ステータス・依頼項目など）を今の列に合わせて設定し直す。入力済みのデータは変わらない</td><td>「入力規則に違反しています」というエラーが出たとき</td></tr>
+      <tr><td>🔧 依頼一覧の見出し・入力規則を修正</td><td>1行目の見出し・列幅と、ドロップダウン（ステータス・依頼項目など）、行の色分けを今の列構成に合わせて設定し直す。入力済みのデータは変わらない</td><td>「入力規則に違反しています」というエラーが出たとき／列を増やしたあと</td></tr>
     </table>
     <div class="tip brass">⚠️「🔁 自動化トリガーを再登録」は<strong>押すのは1人だけ</strong>にしてください。Googleの仕組み上、他の人が登録した設定は消せないため、何人も押すと通知が二重に届くようになります。</div>
     <div class="tip brass">シートを作り直す操作や、依頼フォームを作り直す操作（＝フォームのURLが変わってしまう操作）は、うっかり押せないようメニューから外してあります。必要になったときは試作課のリーダーに相談してください。</div>
@@ -989,6 +1074,14 @@
       <details>
         <summary>アーカイブ<span class="arrow">▸</span></summary>
         <p>完了した依頼を保管しておく場所です。消えるのではなく、別のシートに移動して後から見返せる状態で残ります。</p>
+      </details>
+      <details>
+        <summary>更新情報<span class="arrow">▸</span></summary>
+        <p>依頼一覧の右端にある、1〜10まで並んだ入力欄です。<strong>依頼を出したあとに決まったこと・変わったこと</strong>を書く場所で、シートがロックされていても依頼元の方が入力できます。入力すると日付が自動で付き、Chatの該当スレッドに通知が届きます。</p>
+      </details>
+      <details>
+        <summary>販売年度<span class="arrow">▸</span></summary>
+        <p>その商品を<strong>販売する年度</strong>のことです（会計年度ではありません）。以前は「年度」という項目名でしたが、分かりにくいため「販売年度」に変更しました。</p>
       </details>
     </div>
   </div>
